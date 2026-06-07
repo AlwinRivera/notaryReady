@@ -8,9 +8,8 @@ export default async function handler(req, res) {
   const { plan, successUrl, cancelUrl } = req.body;
 
   const PLANS = {
-    onetime: { name: 'NotaryReady — Single Document',  amount: 9900,  uses: 1   },
-    bundle:  { name: 'NotaryReady — 5 Document Bundle', amount: 39900, uses: 5   },
-    monthly: { name: 'NotaryReady — Monthly Unlimited', amount: 29900, uses: 999 }
+    onetime:  { name: 'NotaryReady — Single Document',    amount: 9900,  uses: 1     },
+    lifetime: { name: 'NotaryReady — Lifetime Unlimited', amount: 49900, uses: 99999 }
   };
 
   const selected = PLANS[plan];
