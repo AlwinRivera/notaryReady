@@ -9,182 +9,184 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <style>
   :root {
-    --gold: #C9A84C; --gold-light: #F0D080; --gold-dark: #8B6914;
-    --ink: #0D0D0D; --paper: #FAF8F3; --paper2: #F2EFE6;
-    --muted: #6B6560; --border: #E0DAD0; --white: #FFFFFF; --danger: #C0392B;
+    --gold:#C9A84C;--gold-light:#F0D080;--gold-dark:#8B6914;
+    --ink:#0D0D0D;--paper:#FAF8F3;--paper2:#F2EFE6;
+    --muted:#6B6560;--border:#E0DAD0;--white:#FFFFFF;--danger:#C0392B;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); overflow-x: hidden; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden;}
 
   /* NAV */
-  nav { background: var(--ink); padding: 0 2rem; height: 60px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
-  .nav-logo { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.3rem; font-weight: 700; }
-  .nav-logo span { color: var(--white); }
-  .nav-right { display: flex; align-items: center; gap: 1rem; }
-  .nav-credits { font-size: 0.78rem; color: #6B6560; }
-  .nav-credits strong { color: var(--gold); }
-  .nav-cta { background: var(--gold); color: var(--ink); border: none; padding: 7px 18px; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.82rem; border-radius: 4px; cursor: pointer; }
+  nav{background:var(--ink);padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;}
+  .nav-logo{font-family:'Playfair Display',serif;color:var(--gold);font-size:1.3rem;font-weight:700;}
+  .nav-logo span{color:var(--white);}
+  .nav-right{display:flex;align-items:center;gap:1rem;}
+  .nav-credits{font-size:0.78rem;color:#6B6560;display:none;}
+  .nav-credits strong{color:var(--gold);}
+  .nav-cta{background:var(--gold);color:var(--ink);border:none;padding:7px 18px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.82rem;border-radius:4px;cursor:pointer;}
 
   /* HERO */
-  .hero { background: var(--ink); padding: 90px 2rem 70px; text-align: center; position: relative; overflow: hidden; }
-  .hero::before { content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%); pointer-events: none; }
-  .hero-eyebrow { display: inline-block; background: rgba(201,168,76,0.15); color: var(--gold); font-size: 0.72rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 2px; margin-bottom: 1.8rem; border: 1px solid rgba(201,168,76,0.3); }
-  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 5.5vw, 4.2rem); font-weight: 900; color: var(--white); line-height: 1.12; margin-bottom: 1.2rem; max-width: 780px; margin-left: auto; margin-right: auto; }
-  .hero h1 em { font-style: normal; color: var(--gold); }
-  .hero p { color: #A8A09A; font-size: 1.05rem; font-weight: 300; max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.7; }
-  .hero-btn { background: var(--gold); color: var(--ink); border: none; padding: 15px 36px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.95rem; border-radius: 4px; cursor: pointer; transition: all 0.2s; }
-  .hero-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
-  .hero-sub { margin-top: 1rem; color: #4A4640; font-size: 0.78rem; }
+  .hero{background:var(--ink);padding:90px 2rem 70px;text-align:center;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(201,168,76,0.1) 0%,transparent 70%);pointer-events:none;}
+  .hero-eyebrow{display:inline-block;background:rgba(201,168,76,0.15);color:var(--gold);font-size:0.72rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:2px;margin-bottom:1.8rem;border:1px solid rgba(201,168,76,0.3);}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5.5vw,4.2rem);font-weight:900;color:var(--white);line-height:1.12;margin-bottom:1.2rem;max-width:780px;margin-left:auto;margin-right:auto;}
+  .hero h1 em{font-style:normal;color:var(--gold);}
+  .hero p{color:#A8A09A;font-size:1.05rem;font-weight:300;max-width:480px;margin:0 auto 2.5rem;line-height:1.7;}
+  .hero-btn{background:var(--gold);color:var(--ink);border:none;padding:15px 36px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.95rem;border-radius:4px;cursor:pointer;transition:all 0.2s;}
+  .hero-btn:hover{background:var(--gold-light);transform:translateY(-1px);}
+  .hero-sub{margin-top:1rem;color:#4A4640;font-size:0.78rem;}
 
-  /* PROOF STRIP */
-  .proof-strip { background: var(--paper2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 1rem 2rem; text-align: center; font-size: 0.8rem; color: var(--muted); }
-  .proof-strip strong { color: var(--ink); }
+  /* PROOF */
+  .proof-strip{background:var(--paper2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1rem 2rem;text-align:center;font-size:0.8rem;color:var(--muted);}
+  .proof-strip strong{color:var(--ink);}
+
+  /* SAMPLE PREVIEW */
+  .sample-section{padding:70px 2rem;background:var(--white);}
+  .sample-doc{background:var(--paper);border:1px solid var(--border);border-radius:8px;padding:2rem 2.5rem;font-size:0.82rem;line-height:2;color:var(--ink);position:relative;max-width:580px;margin:0 auto;}
+  .sample-doc-title{text-align:center;font-weight:700;font-size:0.88rem;letter-spacing:1px;margin-bottom:1.2rem;text-transform:uppercase;}
+  .blur-block{display:block;height:10px;border-radius:2px;background:var(--ink);opacity:0.1;margin:6px 0;}
+  .sample-fade{position:absolute;bottom:0;left:0;right:0;height:60%;background:linear-gradient(to bottom,transparent,var(--white) 75%);border-radius:0 0 8px 8px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:1.5rem;}
+  .sample-cta-btn{background:var(--gold);color:var(--ink);border:none;padding:10px 24px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.85rem;border-radius:4px;cursor:pointer;}
 
   /* HOW IT WORKS */
-  .section { padding: 70px 2rem; }
-  .section-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 0.6rem; }
-  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3vw, 2.5rem); font-weight: 700; color: var(--ink); margin-bottom: 0.8rem; }
-  .section-sub { color: var(--muted); font-size: 0.95rem; max-width: 480px; line-height: 1.7; font-weight: 300; }
-  .step-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 2rem 1.75rem; height: 100%; transition: border-color 0.2s, transform 0.2s; }
-  .step-card:hover { border-color: var(--gold); transform: translateY(-3px); }
-  .step-num { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 900; color: var(--gold); opacity: 0.4; line-height: 1; margin-bottom: 0.8rem; }
-  .step-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.4rem; }
-  .step-desc { color: var(--muted); font-size: 0.85rem; line-height: 1.65; font-weight: 300; }
-
-  /* DOCS SECTION */
-  .doc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
-  .doc-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 8px; padding: 1.2rem 1rem; cursor: pointer; transition: all 0.2s; text-align: center; }
-  .doc-card:hover { border-color: var(--gold); transform: translateY(-2px); }
-  .doc-card.selected { border-color: var(--gold); background: #FDF9EE; box-shadow: 0 0 0 3px rgba(201,168,76,0.15); }
-  .doc-card .doc-icon { font-size: 1.6rem; margin-bottom: 0.5rem; display: block; }
-  .doc-card .doc-name { font-size: 0.82rem; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
-  .doc-card .doc-use { font-size: 0.72rem; color: var(--muted); line-height: 1.4; }
+  .section{padding:70px 2rem;}
+  .section-label{font-size:0.7rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold-dark);margin-bottom:0.6rem;}
+  .section-title{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3vw,2.5rem);font-weight:700;color:var(--ink);margin-bottom:0.8rem;}
+  .section-sub{color:var(--muted);font-size:0.95rem;max-width:480px;line-height:1.7;font-weight:300;}
+  .step-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:2rem 1.75rem;height:100%;transition:border-color 0.2s,transform 0.2s;}
+  .step-card:hover{border-color:var(--gold);transform:translateY(-3px);}
+  .step-num{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;color:var(--gold);opacity:0.4;line-height:1;margin-bottom:0.8rem;}
+  .step-title{font-weight:600;font-size:0.95rem;margin-bottom:0.4rem;}
+  .step-desc{color:var(--muted);font-size:0.85rem;line-height:1.65;font-weight:300;}
 
   /* PRICING */
-  .pricing-section { background: var(--ink); padding: 70px 2rem; text-align: center; }
-  .pricing-section .section-title { color: var(--white); }
-  .pricing-section .section-label { color: rgba(201,168,76,0.8); }
-  .pricing-section .section-sub { color: #A8A09A; margin: 0 auto 2.5rem; }
-  .price-card { background: #1A1814; border: 1px solid #2E2A24; border-radius: 8px; padding: 2rem 1.75rem; text-align: left; height: 100%; position: relative; }
-  .price-card.featured { border-color: var(--gold); background: #1E1B12; }
-  .price-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--ink); font-size: 0.68rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 14px; border-radius: 2px; white-space: nowrap; }
-  .price-tier { font-size: 0.72rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #6B6560; margin-bottom: 0.8rem; }
-  .price-amount { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; color: var(--white); line-height: 1; margin-bottom: 0.2rem; }
-  .price-amount.featured-price { color: var(--gold); }
-  .price-period { font-size: 0.78rem; color: #6B6560; margin-bottom: 1.2rem; }
-  .price-divider { border: none; border-top: 1px solid #2E2A24; margin: 1.2rem 0; }
-  .price-feature { font-size: 0.82rem; color: #A8A09A; padding: 4px 0; display: flex; align-items: flex-start; gap: 8px; font-weight: 300; }
-  .price-feature::before { content: '✓'; color: var(--gold); font-weight: 700; font-size: 0.78rem; flex-shrink: 0; margin-top: 2px; }
-  .price-btn { width: 100%; margin-top: 1.5rem; padding: 11px; border: 1px solid #4A4230; background: transparent; color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.85rem; border-radius: 4px; cursor: pointer; transition: all 0.2s; }
-  .price-btn:hover { border-color: var(--gold); color: var(--gold); }
-  .price-btn.featured-btn { background: var(--gold); border-color: var(--gold); color: var(--ink); }
-  .price-btn.featured-btn:hover { background: var(--gold-light); }
+  .pricing-section{background:var(--ink);padding:70px 2rem;}
+  .pricing-section .section-title{color:var(--white);}
+  .pricing-section .section-label{color:rgba(201,168,76,0.8);}
+  .pricing-section .section-sub{color:#A8A09A;margin:0 auto 2.5rem;}
+  .price-card{background:#1A1814;border:1px solid #2E2A24;border-radius:8px;padding:2rem 1.75rem;text-align:left;height:100%;position:relative;}
+  .price-card.featured{border-color:var(--gold);background:#1E1B12;}
+  .price-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--ink);font-size:0.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 14px;border-radius:2px;white-space:nowrap;}
+  .price-tier{font-size:0.72rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#6B6560;margin-bottom:0.8rem;}
+  .price-amount{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;color:var(--white);line-height:1;margin-bottom:0.2rem;}
+  .price-amount.featured-price{color:var(--gold);}
+  .price-period{font-size:0.78rem;color:#6B6560;margin-bottom:1.2rem;}
+  .price-divider{border:none;border-top:1px solid #2E2A24;margin:1.2rem 0;}
+  .price-feature{font-size:0.82rem;color:#A8A09A;padding:4px 0;display:flex;align-items:flex-start;gap:8px;font-weight:300;}
+  .price-feature::before{content:'✓';color:var(--gold);font-weight:700;font-size:0.78rem;flex-shrink:0;margin-top:2px;}
+  .price-btn{width:100%;margin-top:1.5rem;padding:11px;border:1px solid #4A4230;background:transparent;color:var(--white);font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.85rem;border-radius:4px;cursor:pointer;transition:all 0.2s;}
+  .price-btn:hover{border-color:var(--gold);color:var(--gold);}
+  .price-btn.featured-btn{background:var(--gold);border-color:var(--gold);color:var(--ink);}
+  .price-btn.featured-btn:hover{background:var(--gold-light);}
 
   /* APP */
-  #app-section { padding: 70px 2rem; background: var(--paper); }
-  .app-container { max-width: 860px; margin: 0 auto; }
+  #app-section{padding:70px 2rem;}
+  .app-container{max-width:860px;margin:0 auto;}
+  .form-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:2rem;margin-bottom:1.2rem;}
+  .form-card h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:0.3rem;}
+  .form-card p{color:var(--muted);font-size:0.85rem;margin-bottom:1.5rem;font-weight:300;}
+  .label-sm{font-size:0.76rem;font-weight:600;letter-spacing:0.5px;color:var(--ink);margin-bottom:0.4rem;display:block;}
+  .field-input{width:100%;border:1px solid var(--border);border-radius:6px;padding:10px 14px;font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--ink);background:var(--paper);transition:border-color 0.2s;outline:none;}
+  .field-input:focus{border-color:var(--gold);background:var(--white);}
+  textarea.field-input{resize:vertical;min-height:90px;line-height:1.6;}
+  .form-group{margin-bottom:1rem;}
 
-  /* FORM */
-  .form-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 2rem; margin-bottom: 1.2rem; }
-  .form-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.3rem; }
-  .form-card p { color: var(--muted); font-size: 0.85rem; margin-bottom: 1.5rem; font-weight: 300; }
-  .label-sm { font-size: 0.76rem; font-weight: 600; letter-spacing: 0.5px; color: var(--ink); margin-bottom: 0.4rem; display: block; }
-  .field-input { width: 100%; border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--ink); background: var(--paper); transition: border-color 0.2s; outline: none; }
-  .field-input:focus { border-color: var(--gold); background: var(--white); }
-  textarea.field-input { resize: vertical; min-height: 90px; line-height: 1.6; }
-  select.field-input { cursor: pointer; }
-  .form-group { margin-bottom: 1rem; }
+  /* DOC GRID */
+  .doc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;}
+  .doc-card{background:var(--paper);border:1.5px solid var(--border);border-radius:8px;padding:1.2rem 1rem;cursor:pointer;transition:all 0.2s;text-align:center;}
+  .doc-card:hover{border-color:var(--gold);transform:translateY(-2px);}
+  .doc-card.selected{border-color:var(--gold);background:#FDF9EE;box-shadow:0 0 0 3px rgba(201,168,76,0.15);}
+  .doc-icon{font-size:1.6rem;margin-bottom:0.5rem;display:block;}
+  .doc-name{font-size:0.82rem;font-weight:600;color:var(--ink);margin-bottom:3px;}
+  .doc-use{font-size:0.72rem;color:var(--muted);line-height:1.4;}
 
   /* BUTTONS */
-  .forge-btn { background: var(--gold); color: var(--ink); border: none; padding: 14px 32px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.95rem; border-radius: 4px; cursor: pointer; transition: all 0.2s; width: 100%; }
-  .forge-btn:hover:not(:disabled) { background: var(--gold-light); transform: translateY(-1px); }
-  .forge-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
-  .ghost-btn { background: none; border: 1px solid var(--border); color: var(--muted); padding: 10px 20px; font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 0.85rem; border-radius: 4px; cursor: pointer; transition: all 0.2s; }
-  .ghost-btn:hover { border-color: var(--ink); color: var(--ink); }
-  .copy-btn { background: var(--ink); color: var(--white); border: none; padding: 9px 18px; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.82rem; border-radius: 4px; cursor: pointer; transition: background 0.2s; }
-  .copy-btn:hover { background: #2D2A24; }
-  .print-btn { background: var(--gold); color: var(--ink); border: none; padding: 9px 18px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.82rem; border-radius: 4px; cursor: pointer; transition: background 0.2s; }
-  .print-btn:hover { background: var(--gold-light); }
+  .forge-btn{background:var(--gold);color:var(--ink);border:none;padding:14px 32px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.95rem;border-radius:4px;cursor:pointer;transition:all 0.2s;width:100%;}
+  .forge-btn:hover:not(:disabled){background:var(--gold-light);transform:translateY(-1px);}
+  .forge-btn:disabled{opacity:0.55;cursor:not-allowed;transform:none;}
+  .ghost-btn{background:none;border:1px solid var(--border);color:var(--muted);padding:10px 20px;font-family:'DM Sans',sans-serif;font-weight:500;font-size:0.85rem;border-radius:4px;cursor:pointer;transition:all 0.2s;}
+  .ghost-btn:hover{border-color:var(--ink);color:var(--ink);}
+  .copy-btn{background:var(--ink);color:var(--white);border:none;padding:9px 18px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.82rem;border-radius:4px;cursor:pointer;}
+  .copy-btn:hover{background:#2D2A24;}
+  .print-btn{background:var(--gold);color:var(--ink);border:none;padding:9px 18px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.82rem;border-radius:4px;cursor:pointer;}
+  .print-btn:hover{background:var(--gold-light);}
 
-  /* DOCUMENT OUTPUT */
-  .doc-output { background: var(--white); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
-  .doc-toolbar { padding: 0.9rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--paper2); flex-wrap: wrap; gap: 10px; }
-  .doc-toolbar-title { font-size: 0.85rem; font-weight: 600; color: var(--ink); }
-  .doc-toolbar-sub { font-size: 0.75rem; color: var(--muted); }
-  .doc-body { padding: 2.5rem 3rem; font-size: 0.9rem; line-height: 2; color: var(--ink); white-space: pre-wrap; min-height: 400px; }
+  /* DOC OUTPUT */
+  .doc-output{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.06);}
+  .doc-toolbar{padding:0.9rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--paper2);flex-wrap:wrap;gap:10px;}
+  .doc-toolbar-title{font-size:0.85rem;font-weight:600;color:var(--ink);}
+  .doc-toolbar-sub{font-size:0.75rem;color:var(--muted);}
+  .doc-body{padding:2.5rem 3rem;font-size:0.9rem;line-height:2;color:var(--ink);white-space:pre-wrap;min-height:400px;}
 
   /* TIPS */
-  .tip-box { background: #FDF9EE; border: 1px solid rgba(201,168,76,0.3); border-radius: 8px; padding: 1.2rem 1.5rem; margin-top: 1.5rem; }
-  .tip-box h5 { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.6rem; }
-  .tip-box ul { list-style: none; padding: 0; }
-  .tip-box ul li { font-size: 0.8rem; color: var(--muted); padding: 3px 0; display: flex; gap: 8px; font-weight: 300; }
-  .tip-box ul li::before { content: '→'; color: var(--gold); flex-shrink: 0; }
+  .tip-box{background:#FDF9EE;border:1px solid rgba(201,168,76,0.3);border-radius:8px;padding:1.2rem 1.5rem;margin-top:1.5rem;}
+  .tip-box h5{font-size:0.85rem;font-weight:600;margin-bottom:0.6rem;}
+  .tip-box ul{list-style:none;padding:0;}
+  .tip-box ul li{font-size:0.8rem;color:var(--muted);padding:3px 0;display:flex;gap:8px;font-weight:300;}
+  .tip-box ul li::before{content:'→';color:var(--gold);flex-shrink:0;}
 
   /* PAYWALL MODAL */
-  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 1000; align-items: center; justify-content: center; padding: 1rem; }
-  .modal-overlay.open { display: flex; }
-  .modal-box { background: var(--ink); border: 1px solid #2E2A24; border-radius: 12px; padding: 2.5rem; max-width: 460px; width: 100%; position: relative; animation: fadeIn 0.25s ease; }
-  .modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: #6B6560; font-size: 1.2rem; cursor: pointer; line-height: 1; }
-  .modal-close:hover { color: var(--white); }
-  .modal-box h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--white); margin-bottom: 0.4rem; }
-  .modal-box p { color: #A8A09A; font-size: 0.88rem; line-height: 1.6; margin-bottom: 1.5rem; font-weight: 300; }
-  .modal-plans { display: flex; flex-direction: column; gap: 10px; }
-  .modal-plan { border: 1px solid #2E2A24; border-radius: 8px; padding: 1rem 1.2rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: space-between; }
-  .modal-plan:hover, .modal-plan.active { border-color: var(--gold); background: rgba(201,168,76,0.06); }
-  .modal-plan-left .plan-name { font-size: 0.88rem; font-weight: 600; color: var(--white); }
-  .modal-plan-left .plan-desc { font-size: 0.75rem; color: #6B6560; margin-top: 2px; }
-  .modal-plan-right { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--gold); }
-  .modal-pay-btn { width: 100%; margin-top: 1.2rem; padding: 13px; background: var(--gold); color: var(--ink); border: none; border-radius: 4px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: background 0.2s; }
-  .modal-pay-btn:hover { background: var(--gold-light); }
-  .modal-pay-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-  .modal-secure { text-align: center; font-size: 0.72rem; color: #4A4640; margin-top: 0.8rem; }
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.78);z-index:1000;align-items:center;justify-content:center;padding:1rem;}
+  .modal-overlay.open{display:flex;}
+  .modal-box{background:var(--ink);border:1px solid #2E2A24;border-radius:12px;padding:2.5rem;max-width:420px;width:100%;position:relative;animation:fadeIn 0.25s ease;}
+  .modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:#6B6560;font-size:1.2rem;cursor:pointer;}
+  .modal-close:hover{color:var(--white);}
+  .modal-box h3{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--white);margin-bottom:0.4rem;}
+  .modal-box p{color:#A8A09A;font-size:0.85rem;line-height:1.6;margin-bottom:1.5rem;font-weight:300;}
+  .modal-plans{display:flex;flex-direction:column;gap:10px;}
+  .modal-plan{border:1px solid #2E2A24;border-radius:8px;padding:1rem 1.2rem;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}
+  .modal-plan:hover,.modal-plan.active{border-color:var(--gold);background:rgba(201,168,76,0.06);}
+  .plan-name{font-size:0.88rem;font-weight:600;color:var(--white);}
+  .plan-desc{font-size:0.75rem;color:#6B6560;margin-top:2px;}
+  .modal-plan-right{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--gold);}
+  .modal-pay-btn{width:100%;margin-top:1.2rem;padding:13px;background:var(--gold);color:var(--ink);border:none;border-radius:4px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.95rem;cursor:pointer;transition:background 0.2s;}
+  .modal-pay-btn:hover{background:var(--gold-light);}
+  .modal-pay-btn:disabled{opacity:0.6;cursor:not-allowed;}
+  .modal-secure{text-align:center;font-size:0.72rem;color:#4A4640;margin-top:0.8rem;}
+
+  /* STEPS */
+  .steps-bar{display:flex;align-items:center;justify-content:center;margin-bottom:2.5rem;}
+  .step-dot-wrap{display:flex;flex-direction:column;align-items:center;gap:5px;}
+  .s-dot{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--border);background:var(--paper);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:600;color:var(--muted);transition:all 0.25s;}
+  .s-dot.active{background:var(--gold);border-color:var(--gold);color:var(--ink);}
+  .s-dot.done{background:var(--ink);border-color:var(--ink);color:var(--white);}
+  .s-label{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);white-space:nowrap;}
+  .s-label.active{color:var(--ink);font-weight:600;}
+  .s-line{width:50px;height:1px;background:var(--border);margin-bottom:16px;}
 
   /* MISC */
-  .error-msg { background: #FDF0EE; border: 1px solid #F5C6BC; color: var(--danger); border-radius: 6px; padding: 10px 14px; font-size: 0.82rem; margin-top: 1rem; display: none; }
-  .error-msg.visible { display: block; }
-  .loading-dots::after { content: '...'; animation: dots 1.5s steps(4, end) infinite; }
-  @keyframes dots { 0%,20%{content:'.'} 40%{content:'..'} 60%,100%{content:'...'} }
-  .fade-in { animation: fadeIn 0.35s ease both; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-  .divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
-  #loading-state { display: none; text-align: center; padding: 3rem 1rem; }
-  .spinner { width: 48px; height: 48px; border: 3px solid rgba(201,168,76,0.2); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.9s linear infinite; margin: 0 auto 1rem; }
-  @keyframes spin { to { transform: rotate(360deg); } }
+  .error-msg{background:#FDF0EE;border:1px solid #F5C6BC;color:var(--danger);border-radius:6px;padding:10px 14px;font-size:0.82rem;margin-top:1rem;display:none;}
+  .error-msg.visible{display:block;}
+  .loading-dots::after{content:'...';animation:dots 1.5s steps(4,end) infinite;}
+  @keyframes dots{0%,20%{content:'.'}40%{content:'..'}60%,100%{content:'...'}}
+  .fade-in{animation:fadeIn 0.35s ease both;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .divider{border:none;border-top:1px solid var(--border);margin:1.5rem 0;}
+  .spinner{width:48px;height:48px;border:3px solid rgba(201,168,76,0.2);border-top-color:var(--gold);border-radius:50%;animation:spin 0.9s linear infinite;margin:0 auto 1rem;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .app-screen{display:none;}
+  .app-screen.active{display:block;}
 
-  /* STEPS INDICATOR */
-  .steps-bar { display: flex; align-items: center; justify-content: center; gap: 0; margin-bottom: 2.5rem; }
-  .step-dot-wrap { display: flex; flex-direction: column; align-items: center; gap: 5px; }
-  .s-dot { width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--border); background: var(--paper); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; color: var(--muted); transition: all 0.25s; }
-  .s-dot.active { background: var(--gold); border-color: var(--gold); color: var(--ink); }
-  .s-dot.done { background: var(--ink); border-color: var(--ink); color: var(--white); }
-  .s-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); white-space: nowrap; }
-  .s-label.active { color: var(--ink); font-weight: 600; }
-  .s-line { width: 50px; height: 1px; background: var(--border); margin-bottom: 16px; }
+  #toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:var(--ink);color:white;padding:10px 20px;border-radius:6px;font-size:0.85rem;z-index:9999;opacity:0;transition:opacity 0.3s;pointer-events:none;}
+  #toast.show{opacity:1;}
 
-  /* SCREEN VISIBILITY */
-  .app-screen { display: none; }
-  .app-screen.active { display: block; }
-
-  @media print {
-    nav, .hero, .proof-strip, .section, .pricing-section, #app-section > .app-container > *:not(#screen-result),
-    .doc-toolbar, .tip-box, .ghost-btn, .steps-bar, #screen-result > *:not(.doc-output) { display: none !important; }
-    .doc-body { padding: 0; font-size: 11pt; }
-    .doc-output { border: none; box-shadow: none; }
+  @media print{
+    nav,.hero,.proof-strip,.sample-section,.section,.pricing-section,#app-section>div>*:not(#screen-result),.doc-toolbar,.tip-box,.ghost-btn,.steps-bar{display:none!important;}
+    .doc-body{padding:0;font-size:11pt;}
+    .doc-output{border:none;box-shadow:none;}
   }
-
-  @media (max-width: 576px) {
-    .doc-body { padding: 1.5rem; }
-    .s-line { width: 28px; }
+  @media(max-width:576px){
+    .doc-body{padding:1.5rem;}
+    .s-line{width:28px;}
   }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nav-logo">Notary<span>Ready</span></div>
   <div class="nav-right">
-    <span class="nav-credits" id="nav-credits" style="display:none;">Credits: <strong id="credits-count">0</strong></span>
+    <span class="nav-credits" id="nav-credits">Credits: <strong id="credits-count">0</strong></span>
     <button class="nav-cta" onclick="scrollToApp()">Prepare Document</button>
   </div>
 </nav>
@@ -193,15 +195,47 @@
 <div class="hero">
   <div class="hero-eyebrow">Cebu's AI Notarial Document Preparer</div>
   <h1>Stop paying ₱500–₱2,000 just to <em>type</em> a legal document</h1>
-  <p>Generate a properly formatted notarial document in under 2 minutes. Bring it to any notary for signing. Save thousands in preparation fees.</p>
+  <p>Generate a properly formatted notarial document in under 2 minutes. Bring it to any notary for signing only.</p>
   <button class="hero-btn" onclick="scrollToApp()">Prepare My Document</button>
-  <div class="hero-sub">₱99 one-time · GCash · Maya · Credit Card</div>
+  <div class="hero-sub">₱99 one-time &nbsp;·&nbsp; GCash · Maya · Card</div>
 </div>
 
-<!-- PROOF STRIP -->
 <div class="proof-strip">
   <strong>Affidavit of Loss · Special Power of Attorney · Deed of Sale · Affidavit of Complaint · Authorization Letter · Affidavit of Support</strong>
-  &nbsp;·&nbsp; Formatted to Philippine legal standards &nbsp;·&nbsp; Ready to bring to any notary public in Cebu
+  &nbsp;·&nbsp; Philippine legal format &nbsp;·&nbsp; Ready to bring to any notary in Cebu
+</div>
+
+<!-- SAMPLE PREVIEW -->
+<div class="sample-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-5 mb-4 mb-md-0">
+        <div class="section-label">What you get</div>
+        <div class="section-title">A real, print-ready legal document</div>
+        <p class="section-sub mb-4">Properly formatted in Philippine legal language. Correct jurat block. Signature lines. Bring it straight to a notary — they just sign and stamp.</p>
+        <button class="forge-btn" style="width:auto;padding:12px 28px;" onclick="scrollToApp()">Generate Mine Now →</button>
+      </div>
+      <div class="col-md-7">
+        <div class="sample-doc">
+          <div class="sample-doc-title">AFFIDAVIT OF LOSS</div>
+          <p style="font-size:0.78rem;margin-bottom:1rem;">I, <strong>JUAN DELA CRUZ</strong>, of legal age, single, and a resident of Brgy. Lahug, Cebu City, after being duly sworn in accordance with law, do hereby depose and state that:</p>
+          <p style="font-size:0.78rem;margin-bottom:0.8rem;">1. I am the rightful owner of a <strong>PhilHealth ID Card</strong>, ID No. 12-345678901-2, issued in Cebu City, which I have been using for transactions with government agencies and health institutions;</p>
+          <p style="font-size:0.78rem;margin-bottom:0.8rem;">2. Sometime in March 2025, while commuting in Cebu City, I lost the said ID card and despite diligent search, the same has not been found or recovered;</p>
+          <span class="blur-block" style="width:100%;"></span>
+          <span class="blur-block" style="width:85%;"></span>
+          <span class="blur-block" style="width:92%;"></span>
+          <span class="blur-block" style="width:60%;"></span>
+          <div style="margin-top:1rem;display:flex;justify-content:space-between;">
+            <span class="blur-block" style="width:40%;"></span>
+            <span class="blur-block" style="width:30%;"></span>
+          </div>
+          <div class="sample-fade">
+            <button class="sample-cta-btn" onclick="scrollToApp()">Generate your document →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- HOW IT WORKS -->
@@ -209,29 +243,29 @@
   <div class="container">
     <div class="text-center mb-5">
       <div class="section-label">How it works</div>
-      <div class="section-title">Three steps. Two minutes. Done.</div>
+      <div class="section-title">Pay once. Fill in. Print. Done.</div>
       <div class="section-sub mx-auto">No lawyer appointment. No waiting in line. No ₱1,500 preparation fee.</div>
     </div>
     <div class="row">
       <div class="col-md-4 mb-4">
         <div class="step-card">
           <div class="step-num">1</div>
-          <div class="step-title">Choose your document</div>
-          <div class="step-desc">Select from 6 common notarial documents — Affidavit of Loss, SPA, Deed of Sale, and more.</div>
+          <div class="step-title">Pay ₱99</div>
+          <div class="step-desc">Pay via GCash, Maya, or card. Your credit unlocks immediately after payment — no waiting, no approval.</div>
         </div>
       </div>
       <div class="col-md-4 mb-4">
         <div class="step-card">
           <div class="step-num">2</div>
           <div class="step-title">Fill in your details</div>
-          <div class="step-desc">Answer simple questions about your situation. No legal knowledge needed — we guide you through it.</div>
+          <div class="step-desc">Answer simple questions. No legal knowledge needed — we guide you through every field.</div>
         </div>
       </div>
       <div class="col-md-4 mb-4">
         <div class="step-card">
           <div class="step-num">3</div>
           <div class="step-title">Print and notarize</div>
-          <div class="step-desc">Download your formatted document. Bring it to any notary for signing. They only charge for the stamp — not the typing.</div>
+          <div class="step-desc">Download your document. Walk into any notary in Cebu. They sign and stamp — no preparation fee, just the notarization fee of ₱100–300.</div>
         </div>
       </div>
     </div>
@@ -240,49 +274,36 @@
 
 <!-- PRICING -->
 <div class="pricing-section" id="pricing">
-  <div class="section-label">Pricing</div>
-  <div class="section-title mb-2">Simple, honest pricing</div>
-  <div class="section-sub mx-auto mb-5">No subscriptions required. Pay only for what you need.</div>
-  <div class="container">
+  <div class="container text-center">
+    <div class="section-label">Pricing</div>
+    <div class="section-title text-white mb-2">Simple. No subscriptions.</div>
+    <div class="section-sub mx-auto mb-5">Pay only for what you need. Most people only need one.</div>
     <div class="row justify-content-center">
       <div class="col-md-4 mb-4">
         <div class="price-card">
           <div class="price-tier">Single</div>
           <div class="price-amount">₱99</div>
-          <div class="price-period">one document</div>
+          <div class="price-period">one document · never expires</div>
           <hr class="price-divider">
           <div class="price-feature">1 notarial document</div>
           <div class="price-feature">All 6 document types</div>
           <div class="price-feature">Print-ready format</div>
-          <div class="price-feature">Lifetime access to that doc</div>
+          <div class="price-feature">Bring to any Cebu notary</div>
           <button class="price-btn" onclick="openPaywall('onetime')">Pay with GCash / Card</button>
         </div>
       </div>
       <div class="col-md-4 mb-4">
         <div class="price-card featured">
           <div class="price-badge">Best Value</div>
-          <div class="price-tier">Bundle</div>
-          <div class="price-amount featured-price">₱399</div>
-          <div class="price-period">5 documents · save ₱96</div>
+          <div class="price-tier">Lifetime</div>
+          <div class="price-amount featured-price">₱499</div>
+          <div class="price-period">unlimited · one-time payment</div>
           <hr class="price-divider">
-          <div class="price-feature">5 documents to use anytime</div>
+          <div class="price-feature">Unlimited documents forever</div>
           <div class="price-feature">All 6 document types</div>
-          <div class="price-feature">Share with family members</div>
-          <div class="price-feature">Never expires</div>
-          <button class="price-btn featured-btn" onclick="openPaywall('bundle')">Pay with GCash / Card</button>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="price-card">
-          <div class="price-tier">Monthly</div>
-          <div class="price-amount">₱299</div>
-          <div class="price-period">per month · unlimited</div>
-          <hr class="price-divider">
-          <div class="price-feature">Unlimited documents</div>
-          <div class="price-feature">All 6 document types</div>
-          <div class="price-feature">Perfect for small businesses</div>
-          <div class="price-feature">Cancel anytime</div>
-          <button class="price-btn" onclick="openPaywall('monthly')">Pay with GCash / Card</button>
+          <div class="price-feature">Share with family</div>
+          <div class="price-feature">No subscription ever</div>
+          <button class="price-btn featured-btn" onclick="openPaywall('lifetime')">Pay with GCash / Card</button>
         </div>
       </div>
     </div>
@@ -297,7 +318,6 @@
       <div class="section-title">Prepare your document now</div>
     </div>
 
-    <!-- STEPS BAR -->
     <div class="steps-bar" id="steps-bar">
       <div class="step-dot-wrap">
         <div class="s-dot active" id="sdot-1">1</div>
@@ -315,46 +335,22 @@
       </div>
     </div>
 
-    <!-- SCREEN 1: SELECT DOC -->
+    <!-- SCREEN 1: SELECT -->
     <div class="app-screen active" id="screen-select">
       <div class="form-card">
         <h3>What document do you need?</h3>
-        <p>Select the type of notarial document. All documents follow Philippine legal format.</p>
-        <div class="doc-grid" id="doc-grid">
-          <div class="doc-card" onclick="selectDoc('affidavit_loss', this)">
-            <span class="doc-icon">📄</span>
-            <div class="doc-name">Affidavit of Loss</div>
-            <div class="doc-use">Lost ID, ATM, documents, phone</div>
-          </div>
-          <div class="doc-card" onclick="selectDoc('spa', this)">
-            <span class="doc-icon">✍️</span>
-            <div class="doc-name">Special Power of Attorney</div>
-            <div class="doc-use">Authorize someone to act for you</div>
-          </div>
-          <div class="doc-card" onclick="selectDoc('deed_of_sale', this)">
-            <span class="doc-icon">🏍️</span>
-            <div class="doc-name">Deed of Sale</div>
-            <div class="doc-use">Vehicle or property transfer</div>
-          </div>
-          <div class="doc-card" onclick="selectDoc('affidavit_complaint', this)">
-            <span class="doc-icon">⚖️</span>
-            <div class="doc-name">Affidavit of Complaint</div>
-            <div class="doc-use">File a complaint against a person</div>
-          </div>
-          <div class="doc-card" onclick="selectDoc('authorization', this)">
-            <span class="doc-icon">🔑</span>
-            <div class="doc-name">Authorization Letter</div>
-            <div class="doc-use">Authorize someone to claim/transact</div>
-          </div>
-          <div class="doc-card" onclick="selectDoc('affidavit_support', this)">
-            <span class="doc-icon">🤝</span>
-            <div class="doc-name">Affidavit of Support</div>
-            <div class="doc-use">Financial support for travel/visa</div>
-          </div>
+        <p>Select the type of notarial document. Payment comes next — takes 30 seconds via GCash.</p>
+        <div class="doc-grid">
+          <div class="doc-card" onclick="selectDoc('affidavit_loss',this)"><span class="doc-icon">📄</span><div class="doc-name">Affidavit of Loss</div><div class="doc-use">Lost ID, ATM, documents, phone</div></div>
+          <div class="doc-card" onclick="selectDoc('spa',this)"><span class="doc-icon">✍️</span><div class="doc-name">Special Power of Attorney</div><div class="doc-use">Authorize someone to act for you</div></div>
+          <div class="doc-card" onclick="selectDoc('deed_of_sale',this)"><span class="doc-icon">🏍️</span><div class="doc-name">Deed of Sale</div><div class="doc-use">Vehicle or property transfer</div></div>
+          <div class="doc-card" onclick="selectDoc('affidavit_complaint',this)"><span class="doc-icon">⚖️</span><div class="doc-name">Affidavit of Complaint</div><div class="doc-use">File a complaint against a person</div></div>
+          <div class="doc-card" onclick="selectDoc('authorization',this)"><span class="doc-icon">🔑</span><div class="doc-name">Authorization Letter</div><div class="doc-use">Authorize someone to claim/transact</div></div>
+          <div class="doc-card" onclick="selectDoc('affidavit_support',this)"><span class="doc-icon">🤝</span><div class="doc-name">Affidavit of Support</div><div class="doc-use">Financial support for travel/visa</div></div>
         </div>
-        <div class="error-msg" id="select-error">Please select a document type to continue.</div>
+        <div class="error-msg" id="select-error">Please select a document type first.</div>
         <div class="mt-4">
-          <button class="forge-btn" onclick="goToForm()">Continue →</button>
+          <button class="forge-btn" onclick="goToPayOrForm()">Continue →</button>
         </div>
       </div>
     </div>
@@ -363,12 +359,12 @@
     <div class="app-screen" id="screen-form">
       <div class="form-card fade-in">
         <h3 id="form-title">Fill in your details</h3>
-        <p id="form-sub">Fill in the information below accurately. These will appear verbatim in your legal document.</p>
+        <p>Fill in accurately — these appear verbatim in your legal document.</p>
         <div id="form-fields"></div>
         <div class="error-msg" id="form-error"></div>
         <div class="divider"></div>
-        <div class="d-flex gap-2" style="gap:10px;">
-          <button class="ghost-btn" onclick="goBack('screen-select', 1)">← Back</button>
+        <div style="display:flex;gap:10px;">
+          <button class="ghost-btn" onclick="showScreen('screen-select',1)">← Back</button>
           <button class="forge-btn" style="width:auto;flex:1;" onclick="handleGenerate()">Generate Document →</button>
         </div>
       </div>
@@ -376,7 +372,7 @@
 
     <!-- SCREEN 3: LOADING -->
     <div class="app-screen" id="screen-loading">
-      <div id="loading-state" style="display:block;">
+      <div style="text-align:center;padding:3rem 1rem;">
         <div class="spinner"></div>
         <p style="color:var(--muted);font-size:0.9rem;" class="loading-dots">Preparing your document</p>
         <p style="color:#bbb;font-size:0.78rem;margin-top:0.4rem;">Formatting in proper Philippine legal language</p>
@@ -388,10 +384,10 @@
       <div class="doc-output fade-in">
         <div class="doc-toolbar">
           <div>
-            <div class="doc-toolbar-title" id="result-title">Affidavit of Loss</div>
+            <div class="doc-toolbar-title" id="result-title">Document</div>
             <div class="doc-toolbar-sub">Ready to print and bring to a notary public</div>
           </div>
-          <div class="d-flex" style="gap:8px;">
+          <div style="display:flex;gap:8px;">
             <button class="copy-btn" onclick="copyDoc()">Copy</button>
             <button class="print-btn" onclick="window.print()">Print</button>
           </div>
@@ -403,9 +399,9 @@
         <ul>
           <li>Print on long bond paper (8.5" × 13")</li>
           <li>Bring a valid government-issued ID</li>
-          <li>Go to any notary public in Cebu — they only need to sign and stamp</li>
-          <li>Notarization signing fee: ₱100–₱300 (much less than preparation fee)</li>
-          <li>Do NOT sign the document before seeing the notary — sign in front of them</li>
+          <li>Go to any notary public in Cebu — they sign and stamp only</li>
+          <li>Notarization fee: ₱100–₱300 (signing only, no preparation fee)</li>
+          <li>Do NOT sign before seeing the notary — sign in front of them</li>
         </ul>
       </div>
       <div class="mt-3">
@@ -420,29 +416,16 @@
 <div class="modal-overlay" id="paywall-modal">
   <div class="modal-box">
     <button class="modal-close" onclick="closePaywall()">✕</button>
-    <h3>Get your document</h3>
-    <p>Pay once via GCash, Maya, or card. Your document will be ready immediately after payment.</p>
+    <h3>Unlock your document</h3>
+    <p>Pay once via GCash, Maya, or card. Your document generates immediately after payment.</p>
     <div class="modal-plans">
       <div class="modal-plan active" id="plan-onetime" onclick="selectPlan('onetime')">
-        <div class="modal-plan-left">
-          <div class="plan-name">Single Document</div>
-          <div class="plan-desc">One document, any type</div>
-        </div>
+        <div><div class="plan-name">Single Document</div><div class="plan-desc">One document, any type · never expires</div></div>
         <div class="modal-plan-right">₱99</div>
       </div>
-      <div class="modal-plan" id="plan-bundle" onclick="selectPlan('bundle')">
-        <div class="modal-plan-left">
-          <div class="plan-name">5 Document Bundle</div>
-          <div class="plan-desc">Save ₱96 · never expires</div>
-        </div>
-        <div class="modal-plan-right">₱399</div>
-      </div>
-      <div class="modal-plan" id="plan-monthly" onclick="selectPlan('monthly')">
-        <div class="modal-plan-left">
-          <div class="plan-name">Monthly Unlimited</div>
-          <div class="plan-desc">Unlimited · cancel anytime</div>
-        </div>
-        <div class="modal-plan-right">₱299</div>
+      <div class="modal-plan" id="plan-lifetime" onclick="selectPlan('lifetime')">
+        <div><div class="plan-name">Lifetime Unlimited</div><div class="plan-desc">Unlimited documents · one-time payment</div></div>
+        <div class="modal-plan-right">₱499</div>
       </div>
     </div>
     <button class="modal-pay-btn" id="pay-btn" onclick="checkout()">Pay with GCash / Maya / Card</button>
@@ -450,64 +433,34 @@
   </div>
 </div>
 
+<div id="toast"></div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 // ─────────────────────────────────────────
-// USAGE / CREDITS
+// CREDITS
 // ─────────────────────────────────────────
-function getUsage() {
-  try { return JSON.parse(localStorage.getItem('nr_usage') || '{}'); } catch { return {}; }
+function getCredits(){try{return parseInt(localStorage.getItem('nr_credits')||'0');}catch{return 0;}}
+function setCredits(n){localStorage.setItem('nr_credits',String(n));updateCreditsDisplay();}
+function useCredit(){setCredits(Math.max(0,getCredits()-1));}
+function addCredits(n){setCredits(getCredits()+n);}
+function updateCreditsDisplay(){
+  var c=getCredits();
+  var el=document.getElementById('nav-credits');
+  document.getElementById('credits-count').textContent=c;
+  el.style.display=c>0?'inline':'none';
 }
 
-function setUsage(u) {
-  localStorage.setItem('nr_usage', JSON.stringify(u));
-}
-
-function getCredits() {
-  const u = getUsage();
-  return u.credits || 0;
-}
-
-function useCredit() {
-  const u = getUsage();
-  u.credits = Math.max(0, (u.credits || 0) - 1);
-  setUsage(u);
-  updateCreditsDisplay();
-}
-
-function addCredits(n) {
-  const u = getUsage();
-  u.credits = (u.credits || 0) + n;
-  u.paid = true;
-  setUsage(u);
-  updateCreditsDisplay();
-}
-
-function updateCreditsDisplay() {
-  const c = getCredits();
-  const nav = document.getElementById('nav-credits');
-  const cnt = document.getElementById('credits-count');
-  if (c > 0) { nav.style.display = 'inline'; cnt.textContent = c; }
-  else { nav.style.display = 'none'; }
-}
-
-// ─────────────────────────────────────────
-// SUCCESS URL HANDLING
-// ─────────────────────────────────────────
-(function checkSuccess() {
-  const params = new URLSearchParams(window.location.search);
-  const plan = params.get('paid');
-  if (!plan) return;
-
-  const credits = { onetime: 1, bundle: 5, monthly: 999 };
-  addCredits(credits[plan] || 1);
-
-  // Clean URL
-  window.history.replaceState({}, '', window.location.pathname);
-
-  // Show success toast
-  showToast('Payment successful! Your credits have been added.');
-  setTimeout(() => scrollToApp(), 800);
+// Handle success return from PayMongo
+(function(){
+  var p=new URLSearchParams(window.location.search);
+  var paid=p.get('paid');
+  if(!paid)return;
+  var credits={onetime:1,lifetime:99999};
+  addCredits(credits[paid]||1);
+  window.history.replaceState({},'',window.location.pathname);
+  showToast('Payment successful! Your document is ready to generate.');
+  setTimeout(function(){scrollToApp();},600);
 })();
 
 updateCreditsDisplay();
@@ -515,73 +468,73 @@ updateCreditsDisplay();
 // ─────────────────────────────────────────
 // DOC TYPES
 // ─────────────────────────────────────────
-const DOC_TYPES = {
-  affidavit_loss: {
-    name: 'Affidavit of Loss',
-    fields: [
-      { id: 'affiant_name',   label: 'Your Full Legal Name',     type: 'text',     placeholder: 'e.g. Juan dela Cruz' },
-      { id: 'affiant_age',    label: 'Age',                      type: 'text',     placeholder: 'e.g. 35' },
-      { id: 'affiant_civil',  label: 'Civil Status',             type: 'select',   options: ['Single','Married','Widowed','Separated'] },
-      { id: 'affiant_address',label: 'Complete Address',         type: 'text',     placeholder: 'e.g. Brgy. Lahug, Cebu City' },
-      { id: 'lost_item',      label: 'What was lost?',           type: 'text',     placeholder: 'e.g. PhilHealth ID Card' },
-      { id: 'lost_details',   label: 'Item details (ID number, description, etc.)', type: 'textarea', placeholder: 'e.g. PhilHealth ID No. 12-345678901-2, issued in Cebu City' },
-      { id: 'circumstances',  label: 'How/when was it lost?',    type: 'textarea', placeholder: 'e.g. Sometime in March 2025 while commuting in Cebu City. Despite diligent search, it could not be found.' },
+var DOC_TYPES={
+  affidavit_loss:{
+    name:'Affidavit of Loss',
+    fields:[
+      {id:'affiant_name',label:'Your Full Legal Name',type:'text',placeholder:'e.g. Juan dela Cruz'},
+      {id:'affiant_age',label:'Age',type:'text',placeholder:'e.g. 35'},
+      {id:'affiant_civil',label:'Civil Status',type:'select',options:['Single','Married','Widowed','Separated']},
+      {id:'affiant_address',label:'Complete Address',type:'text',placeholder:'e.g. Brgy. Lahug, Cebu City'},
+      {id:'lost_item',label:'What was lost?',type:'text',placeholder:'e.g. PhilHealth ID Card'},
+      {id:'lost_details',label:'Item details (ID number, description, etc.)',type:'textarea',placeholder:'e.g. PhilHealth ID No. 12-345678901-2, issued in Cebu City'},
+      {id:'circumstances',label:'How/when was it lost?',type:'textarea',placeholder:'e.g. Sometime in March 2025 while commuting in Cebu City. Despite diligent search, it could not be found.'},
     ]
   },
-  spa: {
-    name: 'Special Power of Attorney',
-    fields: [
-      { id: 'principal_name',    label: 'Your Full Name (Principal)',          type: 'text',     placeholder: 'e.g. Maria Santos' },
-      { id: 'principal_address', label: 'Your Address',                        type: 'text',     placeholder: 'e.g. Brgy. Mabolo, Cebu City' },
-      { id: 'agent_name',        label: 'Attorney-in-Fact Full Name',          type: 'text',     placeholder: 'Person you are authorizing' },
-      { id: 'agent_address',     label: 'Attorney-in-Fact Address',            type: 'text',     placeholder: 'e.g. Brgy. Guadalupe, Cebu City' },
-      { id: 'agent_relation',    label: 'Their relationship to you',           type: 'text',     placeholder: 'e.g. spouse, sibling, friend' },
-      { id: 'authority',         label: 'What are you authorizing them to do?',type: 'textarea', placeholder: 'e.g. To receive my salary, sign documents on my behalf, manage my BDO bank account, and transact with government agencies during my absence abroad.' },
+  spa:{
+    name:'Special Power of Attorney',
+    fields:[
+      {id:'principal_name',label:'Your Full Name (Principal)',type:'text',placeholder:'e.g. Maria Santos'},
+      {id:'principal_address',label:'Your Address',type:'text',placeholder:'e.g. Brgy. Mabolo, Cebu City'},
+      {id:'agent_name',label:'Attorney-in-Fact Full Name',type:'text',placeholder:'Person you are authorizing'},
+      {id:'agent_address',label:'Attorney-in-Fact Address',type:'text',placeholder:'e.g. Brgy. Guadalupe, Cebu City'},
+      {id:'agent_relation',label:'Their relationship to you',type:'text',placeholder:'e.g. spouse, sibling, friend'},
+      {id:'authority',label:'What are you authorizing them to do?',type:'textarea',placeholder:'e.g. To receive my salary, sign documents on my behalf, manage my BDO bank account, and transact with government agencies during my absence abroad.'},
     ]
   },
-  deed_of_sale: {
-    name: 'Deed of Sale',
-    fields: [
-      { id: 'seller_name',    label: 'Seller Full Name',          type: 'text',     placeholder: 'e.g. Pedro Reyes' },
-      { id: 'seller_address', label: 'Seller Address',            type: 'text',     placeholder: 'e.g. Mandaue City, Cebu' },
-      { id: 'buyer_name',     label: 'Buyer Full Name',           type: 'text',     placeholder: 'e.g. Ana Garcia' },
-      { id: 'buyer_address',  label: 'Buyer Address',             type: 'text',     placeholder: 'e.g. Talisay City, Cebu' },
-      { id: 'item_desc',      label: 'Item being sold',           type: 'text',     placeholder: 'e.g. 2019 Honda Click 125i Motorcycle' },
-      { id: 'item_details',   label: 'Item details (plate, chassis, serial, color, etc.)', type: 'textarea', placeholder: 'e.g. Plate No. CEU-1234, Chassis No. ABCDE12345, Engine No. XYZ987, Color: Black' },
-      { id: 'sale_price',     label: 'Agreed sale price (₱)',     type: 'text',     placeholder: 'e.g. 45,000' },
+  deed_of_sale:{
+    name:'Deed of Sale',
+    fields:[
+      {id:'seller_name',label:'Seller Full Name',type:'text',placeholder:'e.g. Pedro Reyes'},
+      {id:'seller_address',label:'Seller Address',type:'text',placeholder:'e.g. Mandaue City, Cebu'},
+      {id:'buyer_name',label:'Buyer Full Name',type:'text',placeholder:'e.g. Ana Garcia'},
+      {id:'buyer_address',label:'Buyer Address',type:'text',placeholder:'e.g. Talisay City, Cebu'},
+      {id:'item_desc',label:'Item being sold',type:'text',placeholder:'e.g. 2019 Honda Click 125i Motorcycle'},
+      {id:'item_details',label:'Item details (plate, chassis, serial, color, etc.)',type:'textarea',placeholder:'e.g. Plate No. CEU-1234, Chassis No. ABCDE12345, Engine No. XYZ987, Color: Black'},
+      {id:'sale_price',label:'Agreed sale price (₱)',type:'text',placeholder:'e.g. 45,000'},
     ]
   },
-  affidavit_complaint: {
-    name: 'Affidavit of Complaint',
-    fields: [
-      { id: 'complainant_name',    label: 'Your Full Name (Complainant)',           type: 'text',     placeholder: 'e.g. Rosa Lim' },
-      { id: 'complainant_address', label: 'Your Address',                           type: 'text',     placeholder: 'e.g. Brgy. Pardo, Cebu City' },
-      { id: 'respondent_name',     label: 'Name of person you are complaining against', type: 'text', placeholder: 'e.g. Jose Reyes' },
-      { id: 'respondent_address',  label: 'Their address (if known)',               type: 'text',     placeholder: 'e.g. Brgy. Labangon, Cebu City' },
-      { id: 'incident_date',       label: 'Date of incident',                       type: 'text',     placeholder: 'e.g. May 15, 2025' },
-      { id: 'incident_details',    label: 'Describe what happened (be factual and specific)', type: 'textarea', placeholder: 'Describe the incident clearly...' },
+  affidavit_complaint:{
+    name:'Affidavit of Complaint',
+    fields:[
+      {id:'complainant_name',label:'Your Full Name (Complainant)',type:'text',placeholder:'e.g. Rosa Lim'},
+      {id:'complainant_address',label:'Your Address',type:'text',placeholder:'e.g. Brgy. Pardo, Cebu City'},
+      {id:'respondent_name',label:'Name of person you are complaining against',type:'text',placeholder:'e.g. Jose Reyes'},
+      {id:'respondent_address',label:'Their address (if known)',type:'text',placeholder:'e.g. Brgy. Labangon, Cebu City'},
+      {id:'incident_date',label:'Date of incident',type:'text',placeholder:'e.g. May 15, 2025'},
+      {id:'incident_details',label:'Describe what happened (be factual and specific)',type:'textarea',placeholder:'Describe the incident clearly...'},
     ]
   },
-  authorization: {
-    name: 'Authorization Letter',
-    fields: [
-      { id: 'authorizer_name',     label: 'Your Full Name',                        type: 'text',     placeholder: 'e.g. Carlo Mendoza' },
-      { id: 'authorizer_id',       label: 'Your ID number (any government ID)',    type: 'text',     placeholder: 'e.g. Passport No. P1234567A' },
-      { id: 'authorized_name',     label: 'Name of person you are authorizing',   type: 'text',     placeholder: 'e.g. Liza Mendoza' },
-      { id: 'authorized_relation', label: 'Their relationship to you',             type: 'text',     placeholder: 'e.g. wife, sister, friend' },
-      { id: 'purpose',             label: 'What are you authorizing them to do?',  type: 'textarea', placeholder: 'e.g. To claim my SSS check, pick up my documents from the DFA, and sign forms on my behalf at BPI Cebu branch.' },
-      { id: 'validity',            label: 'Valid until',                           type: 'text',     placeholder: 'e.g. December 31, 2025 or "one-time use only"' },
+  authorization:{
+    name:'Authorization Letter',
+    fields:[
+      {id:'authorizer_name',label:'Your Full Name',type:'text',placeholder:'e.g. Carlo Mendoza'},
+      {id:'authorizer_id',label:'Your ID number (any government ID)',type:'text',placeholder:'e.g. Passport No. P1234567A'},
+      {id:'authorized_name',label:'Name of person you are authorizing',type:'text',placeholder:'e.g. Liza Mendoza'},
+      {id:'authorized_relation',label:'Their relationship to you',type:'text',placeholder:'e.g. wife, sister, friend'},
+      {id:'purpose',label:'What are you authorizing them to do?',type:'textarea',placeholder:'e.g. To claim my SSS check, pick up my documents from the DFA, and sign forms on my behalf at BPI Cebu branch.'},
+      {id:'validity',label:'Valid until',type:'text',placeholder:'e.g. December 31, 2025 or one-time use only'},
     ]
   },
-  affidavit_support: {
-    name: 'Affidavit of Support',
-    fields: [
-      { id: 'sponsor_name',       label: 'Your Full Name (Sponsor)',              type: 'text',     placeholder: 'e.g. Mario Cruz' },
-      { id: 'sponsor_address',    label: 'Your Address',                          type: 'text',     placeholder: 'e.g. Cebu City, Philippines' },
-      { id: 'sponsor_occupation', label: 'Your Occupation',                       type: 'text',     placeholder: 'e.g. Engineer / OFW in Saudi Arabia' },
-      { id: 'beneficiary_name',   label: 'Name of person you are supporting',     type: 'text',     placeholder: 'e.g. Ana Cruz' },
-      { id: 'beneficiary_relation', label: 'Their relationship to you',           type: 'text',     placeholder: 'e.g. wife, daughter, mother' },
-      { id: 'purpose',            label: 'Purpose and details of support',        type: 'textarea', placeholder: 'e.g. To support her travel to Japan for tourism from June 1–15, 2025. I will shoulder all expenses including airfare, accommodation, and daily allowance of ₱3,000/day.' },
+  affidavit_support:{
+    name:'Affidavit of Support',
+    fields:[
+      {id:'sponsor_name',label:'Your Full Name (Sponsor)',type:'text',placeholder:'e.g. Mario Cruz'},
+      {id:'sponsor_address',label:'Your Address',type:'text',placeholder:'e.g. Cebu City, Philippines'},
+      {id:'sponsor_occupation',label:'Your Occupation',type:'text',placeholder:'e.g. Engineer / OFW in Saudi Arabia'},
+      {id:'beneficiary_name',label:'Name of person you are supporting',type:'text',placeholder:'e.g. Ana Cruz'},
+      {id:'beneficiary_relation',label:'Their relationship to you',type:'text',placeholder:'e.g. wife, daughter, mother'},
+      {id:'purpose',label:'Purpose and details of support',type:'textarea',placeholder:'e.g. To support her travel to Japan for tourism from June 1–15, 2025. I will shoulder all expenses including airfare, accommodation, and daily allowance.'},
     ]
   }
 };
@@ -589,275 +542,229 @@ const DOC_TYPES = {
 // ─────────────────────────────────────────
 // STATE
 // ─────────────────────────────────────────
-let selectedDocType = null;
-let formData = {};
+var selectedDocType=null;
+var formData={};
 
 // ─────────────────────────────────────────
 // SCREEN MANAGEMENT
 // ─────────────────────────────────────────
-function showScreen(id, step) {
-  document.querySelectorAll('.app-screen').forEach(s => s.classList.remove('active'));
+function showScreen(id,step){
+  document.querySelectorAll('.app-screen').forEach(function(s){s.classList.remove('active');});
   document.getElementById(id).classList.add('active');
-  window.scrollTo({ top: document.getElementById('app-section').offsetTop - 80, behavior: 'smooth' });
+  window.scrollTo({top:document.getElementById('app-section').offsetTop-80,behavior:'smooth'});
   updateSteps(step);
 }
 
-function updateSteps(active) {
-  [1,2,3].forEach(i => {
-    const dot = document.getElementById('sdot-' + i);
-    const label = document.getElementById('slabel-' + i);
+function updateSteps(active){
+  [1,2,3].forEach(function(i){
+    var dot=document.getElementById('sdot-'+i);
+    var label=document.getElementById('slabel-'+i);
     dot.classList.remove('active','done');
     label.classList.remove('active');
-    if (i < active) { dot.classList.add('done'); dot.textContent = '✓'; }
-    else { dot.textContent = i; }
-    if (i === active) { dot.classList.add('active'); label.classList.add('active'); }
+    if(i<active){dot.classList.add('done');dot.textContent='✓';}
+    else{dot.textContent=i;}
+    if(i===active){dot.classList.add('active');label.classList.add('active');}
   });
 }
 
 // ─────────────────────────────────────────
 // STEP 1 — SELECT DOC
 // ─────────────────────────────────────────
-function selectDoc(type, el) {
-  selectedDocType = type;
-  document.querySelectorAll('.doc-card').forEach(c => c.classList.remove('selected'));
+function selectDoc(type,el){
+  selectedDocType=type;
+  document.querySelectorAll('.doc-card').forEach(function(c){c.classList.remove('selected');});
   el.classList.add('selected');
-  document.getElementById('select-error').style.display = 'none';
+  document.getElementById('select-error').style.display='none';
 }
 
-function goToForm() {
-  if (!selectedDocType) {
-    const err = document.getElementById('select-error');
-    err.style.display = 'block';
+function goToPayOrForm(){
+  if(!selectedDocType){
+    document.getElementById('select-error').style.display='block';
     return;
   }
-  const doc = DOC_TYPES[selectedDocType];
-  document.getElementById('form-title').textContent = doc.name;
-
-  let html = '';
-  doc.fields.forEach(f => {
-    html += `<div class="form-group">
-      <label class="label-sm" for="f_${f.id}">${f.label}</label>`;
-    if (f.type === 'textarea') {
-      html += `<textarea class="field-input" id="f_${f.id}" placeholder="${f.placeholder}"></textarea>`;
-    } else if (f.type === 'select') {
-      html += `<select class="field-input" id="f_${f.id}">${f.options.map(o => `<option>${o}</option>`).join('')}</select>`;
-    } else {
-      html += `<input type="text" class="field-input" id="f_${f.id}" placeholder="${f.placeholder}">`;
-    }
-    html += `</div>`;
-  });
-
-  document.getElementById('form-fields').innerHTML = html;
-  showScreen('screen-form', 2);
-}
-
-function goBack(screen, step) {
-  showScreen(screen, step);
-}
-
-// ─────────────────────────────────────────
-// STEP 2 — GENERATE (paywall check)
-// ─────────────────────────────────────────
-function handleGenerate() {
-  const doc = DOC_TYPES[selectedDocType];
-  const errEl = document.getElementById('form-error');
-  errEl.style.display = 'none';
-
-  // Collect and validate
-  formData = {};
-  let missing = [];
-  doc.fields.forEach(f => {
-    const el = document.getElementById('f_' + f.id);
-    const val = el ? el.value.trim() : '';
-    if (!val && f.type !== 'select') missing.push(f.label);
-    formData[f.id] = el ? el.value.trim() : '';
-  });
-
-  if (missing.length > 0) {
-    errEl.textContent = `Please fill in: ${missing.slice(0,2).join(', ')}${missing.length > 2 ? ` and ${missing.length - 2} more` : ''}.`;
-    errEl.style.display = 'block';
-    return;
-  }
-
-  // Check credits
-  if (getCredits() <= 0) {
+  // If user already has credits, go straight to form
+  if(getCredits()>0){
+    buildForm();
+    showScreen('screen-form',2);
+  } else {
+    // Show paywall first
     openPaywall('onetime');
+  }
+}
+
+function buildForm(){
+  var doc=DOC_TYPES[selectedDocType];
+  document.getElementById('form-title').textContent=doc.name;
+  var html='';
+  doc.fields.forEach(function(f){
+    html+='<div class="form-group"><label class="label-sm" for="f_'+f.id+'">'+f.label+'</label>';
+    if(f.type==='textarea'){
+      html+='<textarea class="field-input" id="f_'+f.id+'" placeholder="'+f.placeholder+'"></textarea>';
+    } else if(f.type==='select'){
+      html+='<select class="field-input" id="f_'+f.id+'">'+f.options.map(function(o){return '<option>'+o+'</option>';}).join('')+'</select>';
+    } else {
+      html+='<input type="text" class="field-input" id="f_'+f.id+'" placeholder="'+f.placeholder+'">';
+    }
+    html+='</div>';
+  });
+  document.getElementById('form-fields').innerHTML=html;
+}
+
+// ─────────────────────────────────────────
+// STEP 2 — GENERATE
+// ─────────────────────────────────────────
+function handleGenerate(){
+  var doc=DOC_TYPES[selectedDocType];
+  var errEl=document.getElementById('form-error');
+  errEl.style.display='none';
+  errEl.classList.remove('visible');
+
+  formData={};
+  var missing=[];
+  doc.fields.forEach(function(f){
+    var el=document.getElementById('f_'+f.id);
+    var val=el?el.value.trim():'';
+    if(!val&&f.type!=='select') missing.push(f.label);
+    formData[f.id]=el?el.value.trim():'';
+  });
+
+  if(missing.length>0){
+    errEl.textContent='Please fill in: '+missing.slice(0,2).join(', ')+(missing.length>2?' and '+(missing.length-2)+' more':'')+'.';
+    errEl.style.display='block';
     return;
   }
 
+  if(getCredits()<=0){openPaywall('onetime');return;}
   generateDoc();
 }
 
 // ─────────────────────────────────────────
-// STEP 3 — GENERATE DOC
+// STEP 3 — AI CALL
 // ─────────────────────────────────────────
-async function generateDoc() {
-  showScreen('screen-loading', 3);
+async function generateDoc(){
+  showScreen('screen-loading',3);
 
-  const doc = DOC_TYPES[selectedDocType];
-  const systemPrompt = `You are a Philippine legal document specialist with expertise in notarial documents. Generate properly formatted notarial documents following Philippine legal conventions and standards. Output ONLY the document text itself — no explanations, no markdown formatting, no commentary, no preamble. Use formal legal English. Use proper legal recitals, clauses, and signature blocks. Include a proper jurat or acknowledgment block as appropriate, with blanks (represented as underscores) for the notary public's details. Today's date for reference: ${new Date().toLocaleDateString('en-PH', {year:'numeric',month:'long',day:'numeric'})}.`;
+  var doc=DOC_TYPES[selectedDocType];
+  var today=new Date().toLocaleDateString('en-PH',{year:'numeric',month:'long',day:'numeric'});
 
-  const prompts = {
-    affidavit_loss: `Generate a complete, properly formatted Affidavit of Loss for:
-- Affiant: ${formData.affiant_name}, ${formData.affiant_age} years old, ${formData.affiant_civil}, of ${formData.affiant_address}
-- Lost item: ${formData.lost_item}
-- Item details: ${formData.lost_details}
-- Circumstances of loss: ${formData.circumstances}
-Include: title centered and in caps, body with proper legal recitals in numbered paragraphs, signature line with name and date, and a complete jurat block with blanks for notary name, commission number, roll number, PTR number, IBP number, validity date, and place of notarization.`,
+  var systemPrompt='You are a Philippine legal document specialist. Generate properly formatted notarial documents following Philippine legal conventions. Output ONLY the document text — no explanations, no markdown, no preamble, no commentary. Use formal legal English. Include all proper recitals, clauses, and signature blocks. Use underscores (______) for blanks the notary must fill in. Today\'s date: '+today+'.';
 
-    spa: `Generate a complete Special Power of Attorney:
-- Principal: ${formData.principal_name}, of ${formData.principal_address}
-- Attorney-in-Fact: ${formData.agent_name}, ${formData.agent_relation} of the Principal, of ${formData.agent_address}
-- Powers granted: ${formData.authority}
-Include: title, granting clause, specific enumerated powers, general authority clause, revocation clause, signature block for Principal with date, two witness signature lines, and acknowledgment block with blanks for notary details.`,
+  var prompts={
+    affidavit_loss:'Generate a complete Affidavit of Loss.\nAffiant: '+formData.affiant_name+', '+formData.affiant_age+' years old, '+formData.affiant_civil+', of '+formData.affiant_address+'.\nLost item: '+formData.lost_item+'.\nItem details: '+formData.lost_details+'.\nCircumstances: '+formData.circumstances+'.\nInclude: centered title in caps, numbered paragraphs, signature line with printed name and date line, and complete jurat block with blanks for: notary name, commission number, roll number, PTR number, IBP number, validity date, and place.',
 
-    deed_of_sale: `Generate a complete Deed of Absolute Sale:
-- Vendor/Seller: ${formData.seller_name}, of ${formData.seller_address}
-- Vendee/Buyer: ${formData.buyer_name}, of ${formData.buyer_address}
-- Subject of sale: ${formData.item_desc}
-- Details: ${formData.item_details}
-- Consideration: Philippine Peso ${formData.sale_price} (₱${formData.sale_price})
-Include: title, whereas/recital clauses, sale and conveyance clause with full price, warranty of ownership and against liens clause, signature blocks for both Vendor and Vendee with date, two witness lines, and acknowledgment block with blanks for notary details.`,
+    spa:'Generate a complete Special Power of Attorney.\nPrincipal: '+formData.principal_name+', of '+formData.principal_address+'.\nAttorney-in-Fact: '+formData.agent_name+', '+formData.agent_relation+' of the Principal, of '+formData.agent_address+'.\nPowers granted: '+formData.authority+'.\nInclude: title, granting clause, enumerated powers, general authority and revocation clause, signature block with date, two witness lines, acknowledgment block with notary blanks.',
 
-    affidavit_complaint: `Generate a complete Affidavit of Complaint:
-- Complainant: ${formData.complainant_name}, of ${formData.complainant_address}
-- Respondent: ${formData.respondent_name}, of ${formData.respondent_address}
-- Date of incident: ${formData.incident_date}
-- Facts: ${formData.incident_details}
-Include: title, numbered paragraphs with factual narration, prayer/closing statement, signature line for Complainant with date, and complete jurat block with blanks for notary details.`,
+    deed_of_sale:'Generate a complete Deed of Absolute Sale.\nVendor: '+formData.seller_name+', of '+formData.seller_address+'.\nVendee: '+formData.buyer_name+', of '+formData.buyer_address+'.\nSubject: '+formData.item_desc+'. Details: '+formData.item_details+'.\nConsideration: Philippine Peso '+formData.sale_price+' (₱'+formData.sale_price+').\nInclude: title, recital clauses, sale and conveyance clause, warranty clause, signature blocks for both parties with date, two witness lines, acknowledgment block with notary blanks.',
 
-    authorization: `Generate a complete Authorization Letter in notarial/affidavit format:
-- Authorizing party: ${formData.authorizer_name}, with ID: ${formData.authorizer_id}
-- Authorized representative: ${formData.authorized_name}, ${formData.authorized_relation}
-- Authority and acts: ${formData.purpose}
-- Validity: ${formData.validity}
-Include: title, body granting authority, specific acts authorized enumerated, validity and limitations clause, signature block for authorizing party with date, and acknowledgment block with blanks for notary details.`,
+    affidavit_complaint:'Generate a complete Affidavit of Complaint.\nComplainant: '+formData.complainant_name+', of '+formData.complainant_address+'.\nRespondent: '+formData.respondent_name+', of '+formData.respondent_address+'.\nDate of incident: '+formData.incident_date+'.\nFacts: '+formData.incident_details+'.\nInclude: title, numbered paragraphs with factual narration, prayer/closing, signature line with date, complete jurat with notary blanks.',
 
-    affidavit_support: `Generate a complete Affidavit of Support and Guarantee:
-- Affiant/Sponsor: ${formData.sponsor_name}, ${formData.sponsor_occupation}, of ${formData.sponsor_address}
-- Beneficiary: ${formData.beneficiary_name}, ${formData.beneficiary_relation} of the Affiant
-- Purpose and details: ${formData.purpose}
-Include: title, declaration of relationship, declaration of financial capacity and willingness to support, specific undertakings and guarantees, signature block for Affiant with date, and complete jurat block with blanks for notary details.`
+    authorization:'Generate a complete Authorization Letter in notarial format.\nAuthorizing party: '+formData.authorizer_name+', ID: '+formData.authorizer_id+'.\nAuthorized representative: '+formData.authorized_name+', '+formData.authorized_relation+'.\nAuthority: '+formData.purpose+'.\nValidity: '+formData.validity+'.\nInclude: title, granting clause, specific acts enumerated, validity clause, signature block with date, acknowledgment block with notary blanks.',
+
+    affidavit_support:'Generate a complete Affidavit of Support and Guarantee.\nSponsor: '+formData.sponsor_name+', '+formData.sponsor_occupation+', of '+formData.sponsor_address+'.\nBeneficiary: '+formData.beneficiary_name+', '+formData.beneficiary_relation+' of the Sponsor.\nPurpose: '+formData.purpose+'.\nInclude: title, declaration of relationship, declaration of financial capacity, specific undertakings, signature block with date, complete jurat with notary blanks.'
   };
 
-  try {
-    const res = await fetch('/api/forge', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        systemPrompt,
-        userMessage: prompts[selectedDocType]
-      })
+  try{
+    var res=await fetch('/api/forge',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({systemPrompt:systemPrompt,userMessage:prompts[selectedDocType]})
     });
-
-    const data = await res.json();
-    if (!res.ok || !data.content) throw new Error(data.error || 'Generation failed');
+    var data=await res.json();
+    if(!res.ok||!data.content) throw new Error(data.error||'Generation failed');
 
     useCredit();
-    document.getElementById('doc-content').textContent = data.content;
-    document.getElementById('result-title').textContent = doc.name;
-    showScreen('screen-result', 3);
-
-  } catch (err) {
-    showScreen('screen-form', 2);
-    const errEl = document.getElementById('form-error');
-    errEl.textContent = 'Something went wrong. Please try again. (' + err.message + ')';
-    errEl.style.display = 'block';
+    document.getElementById('doc-content').textContent=data.content;
+    document.getElementById('result-title').textContent=doc.name;
+    showScreen('screen-result',3);
+  }catch(err){
+    showScreen('screen-form',2);
+    var errEl=document.getElementById('form-error');
+    errEl.textContent='Something went wrong. Please try again. ('+err.message+')';
+    errEl.style.display='block';
   }
 }
 
 // ─────────────────────────────────────────
 // PAYWALL
 // ─────────────────────────────────────────
-let selectedPlan = 'onetime';
+var selectedPlan='onetime';
 
-function openPaywall(plan) {
-  selectedPlan = plan || 'onetime';
-  document.querySelectorAll('.modal-plan').forEach(p => p.classList.remove('active'));
-  document.getElementById('plan-' + selectedPlan).classList.add('active');
+function openPaywall(plan){
+  selectedPlan=plan||'onetime';
+  document.querySelectorAll('.modal-plan').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('plan-'+selectedPlan).classList.add('active');
   document.getElementById('paywall-modal').classList.add('open');
 }
 
-function closePaywall() {
-  document.getElementById('paywall-modal').classList.remove('open');
+function closePaywall(){document.getElementById('paywall-modal').classList.remove('open');}
+
+function selectPlan(plan){
+  selectedPlan=plan;
+  document.querySelectorAll('.modal-plan').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('plan-'+plan).classList.add('active');
 }
 
-function selectPlan(plan) {
-  selectedPlan = plan;
-  document.querySelectorAll('.modal-plan').forEach(p => p.classList.remove('active'));
-  document.getElementById('plan-' + plan).classList.add('active');
-}
-
-async function checkout() {
-  const btn = document.getElementById('pay-btn');
-  btn.disabled = true;
-  btn.textContent = 'Redirecting...';
-
-  const base = window.location.origin + window.location.pathname;
-
-  try {
-    const res = await fetch('/api/paymongo', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        plan: selectedPlan,
-        successUrl: base + '?paid=' + selectedPlan,
-        cancelUrl: base + '?cancelled=1'
-      })
+async function checkout(){
+  var btn=document.getElementById('pay-btn');
+  btn.disabled=true;
+  btn.textContent='Redirecting...';
+  var base=window.location.origin+window.location.pathname;
+  try{
+    var res=await fetch('/api/paymongo',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({plan:selectedPlan,successUrl:base+'?paid='+selectedPlan,cancelUrl:base+'?cancelled=1'})
     });
-
-    const data = await res.json();
-    if (!res.ok || !data.checkoutUrl) throw new Error(data.error || 'Payment error');
-
-    window.location.href = data.checkoutUrl;
-
-  } catch (err) {
-    btn.disabled = false;
-    btn.textContent = 'Pay with GCash / Maya / Card';
-    showToast('Payment setup failed: ' + err.message);
+    var data=await res.json();
+    if(!res.ok||!data.checkoutUrl) throw new Error(data.error||'Payment error');
+    window.location.href=data.checkoutUrl;
+  }catch(err){
+    btn.disabled=false;
+    btn.textContent='Pay with GCash / Maya / Card';
+    showToast('Payment error: '+err.message);
   }
 }
 
 // ─────────────────────────────────────────
-// UTILITIES
+// UTILS
 // ─────────────────────────────────────────
-function scrollToApp() {
-  document.getElementById('app-section').scrollIntoView({ behavior: 'smooth' });
+function scrollToApp(){document.getElementById('app-section').scrollIntoView({behavior:'smooth'});}
+
+function startOver(){
+  selectedDocType=null;
+  formData={};
+  document.querySelectorAll('.doc-card').forEach(function(c){c.classList.remove('selected');});
+  showScreen('screen-select',1);
 }
 
-function startOver() {
-  selectedDocType = null;
-  formData = {};
-  document.querySelectorAll('.doc-card').forEach(c => c.classList.remove('selected'));
-  showScreen('screen-select', 1);
-}
-
-function copyDoc() {
-  const text = document.getElementById('doc-content').textContent;
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = document.querySelector('.copy-btn');
-    btn.textContent = '✓ Copied!';
-    setTimeout(() => btn.textContent = 'Copy', 2000);
+function copyDoc(){
+  var text=document.getElementById('doc-content').textContent;
+  navigator.clipboard.writeText(text).then(function(){
+    var btn=document.querySelector('.copy-btn');
+    btn.textContent='✓ Copied!';
+    setTimeout(function(){btn.textContent='Copy';},2000);
   });
 }
 
-function showToast(msg) {
-  let t = document.getElementById('toast');
-  if (!t) {
-    t = document.createElement('div');
-    t.id = 'toast';
-    t.style.cssText = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:var(--ink);color:white;padding:10px 20px;border-radius:6px;font-size:0.85rem;z-index:9999;opacity:0;transition:opacity 0.3s;';
-    document.body.appendChild(t);
-  }
-  t.textContent = msg;
-  t.style.opacity = '1';
-  setTimeout(() => t.style.opacity = '0', 3000);
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},3000);
 }
 
-// Close modal on overlay click
-document.getElementById('paywall-modal').addEventListener('click', function(e) {
-  if (e.target === this) closePaywall();
+document.getElementById('paywall-modal').addEventListener('click',function(e){
+  if(e.target===this) closePaywall();
 });
+
+// After payment success, if user came back with credits, auto-open form
+(function(){
+  var p=new URLSearchParams(window.location.search);
+  if(p.get('paid')&&selectedDocType){
+    buildForm();
+    showScreen('screen-form',2);
+  }
+})();
 </script>
 </body>
 </html>
