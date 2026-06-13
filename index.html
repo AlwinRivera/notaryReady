@@ -522,8 +522,30 @@ function updateNav(){var c=getCredits();var el=document.getElementById('nav-cred
   if(!paid)return;
   addCredits(paid==='lifetime'?99999:1);
   window.history.replaceState({},'',window.location.pathname);
-  showToast('Payment confirmed. Your document is ready to generate.');
-  setTimeout(scrollToApp,700);
+
+  // Restore saved form state from before the payment redirect
+  try{
+    var savedType=sessionStorage.getItem('nr_docType');
+    var savedForm=JSON.parse(sessionStorage.getItem('nr_formData')||'{}');
+    sessionStorage.removeItem('nr_docType');
+    sessionStorage.removeItem('nr_formData');
+    if(savedType && DOC_TYPES[savedType] && Object.keys(savedForm).length>0){
+      selectedDocType=savedType;
+      formData=savedForm;
+      buildForm();
+      // Re-populate form fields with saved values
+      Object.keys(savedForm).forEach(function(k){
+        var el=document.getElementById('f_'+k);
+        if(el) el.value=savedForm[k];
+      });
+      showToast('Payment confirmed. Generating your document now...');
+      setTimeout(function(){ handleGenerate(); }, 800);
+      return;
+    }
+  }catch(e){}
+
+  showToast('Payment confirmed. Select your document to continue.');
+  setTimeout(scrollToApp, 700);
 })();
 updateNav();
 
@@ -784,6 +806,11 @@ async function checkout(){
   var btn=document.getElementById('pay-btn');
   btn.disabled=true;btn.textContent='Redirecting...';
   var base=window.location.origin+window.location.pathname;
+  // Save state so it survives the redirect
+  try{
+    sessionStorage.setItem('nr_docType', selectedDocType||'');
+    sessionStorage.setItem('nr_formData', JSON.stringify(formData||{}));
+  }catch(e){}
   try{
     var res=await fetch('/api/paymongo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plan:selectedPlan,successUrl:base+'?paid='+selectedPlan,cancelUrl:base+'?cancelled=1'})});
     var data=await res.json();
@@ -802,7 +829,7 @@ function showToast(msg){var t=document.getElementById('toast');t.textContent=msg
 
 document.getElementById('paywall-modal').addEventListener('click',function(e){if(e.target===this)closePaywall();});
 
-(function(){var p=new URLSearchParams(window.location.search);if(p.get('paid')&&selectedDocType){buildForm();showScreen('screen-form',2);}})();
+
 </script>
 </body>
 </html>
