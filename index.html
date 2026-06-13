@@ -586,31 +586,182 @@ function handleGenerate(){
 async function generateDoc(){
   showScreen('screen-loading',3);
   var doc=DOC_TYPES[selectedDocType];
-  var sys='You are a Philippine notarial document specialist. STRICT OUTPUT RULES:\n1. Output ONLY the document text. No explanations, no markdown, no preamble, no commentary.\n2. ZERO filler sentences. Never write: I am executing this affidavit to attest, I am the affiant in this affidavit, or any sentence restating what the document already is. Every sentence must state a direct fact or legal clause.\n3. JURAT (for affidavits): End with exactly:\n\nSUBSCRIBED AND SWORN to before me this ______ day of ______, 20___, affiant exhibiting his/her competent evidence of identity.\n\nWITNESS MY HAND AND NOTARIAL SEAL.\n\nNotary Public for ______\nCommission No. ______\nRoll No. ______\nPTR No. ______\nIBP No. ______\nValid Until ______\n\n4. ACKNOWLEDGMENT (for deeds and SPAs): End with:\n\nACKNOWLEDGMENT\n\nREPUBLIC OF THE PHILIPPINES )\nCITY/PROVINCE OF ____________ ) S.S.\n\nBEFORE ME, a Notary Public for and in ______, this ______ day of ______, 20___, personally appeared [Name] with [ID type] as competent evidence of identity, known to me to be the same person who executed the foregoing instrument and acknowledged that the same is his/her free and voluntary act and deed.\n\nWITNESS MY HAND AND NOTARIAL SEAL.\n\nNotary Public for ______\nCommission No. ______\nRoll No. ______\nPTR No. ______\nIBP No. ______\nValid Until ______\n\nDoc. No. ______;\nPage No. ______;\nBook No. ______;\nSeries of ______.\n\n5. SIGNATURE BLOCK: Line of underscores then affiant name in caps underneath.\n6. All dates and notary blanks are underscores. Never fill in any date.';
-  var prompts={
-    affidavit_loss:'Generate an Affidavit of Loss. Affiant: '+formData.affiant_name+', '+formData.affiant_age+' years old, '+formData.affiant_civil+', of '+formData.affiant_address+'. Lost item: '+formData.lost_item+'. Item details: '+formData.lost_details+'. Circumstances of loss: '+formData.circumstances+'. START paragraph 1 with: I am the rightful owner of [specific item with details]. START paragraph 2 with the exact circumstances of loss with date and place. START paragraph 3 with: Despite diligent efforts to locate the same, said [item] has not been found. The last paragraph must be a clean declaration sentence. Then IN WITNESS WHEREOF closing. Then signature block. Then jurat.',
 
-    spa:'Generate a tight Special Power of Attorney.\nPrincipal: '+formData.principal_name+', of '+formData.principal_address+'.\nAttorney-in-Fact: '+formData.agent_name+', '+formData.agent_relation+' of the Principal, of '+formData.agent_address+'.\nPowers granted: '+formData.authority+'.\nFormat: centered title, granting clause, clearly enumerated powers, ratification clause, signature block with date as underscores, two witness lines with spaces for names and dates, acknowledgment block with ALL date/notary fields as underscores.',
+  // ── HARDCODED DOCUMENT PARTS (AI cannot touch these) ──────────────────
+  var JURAT=
+    '\n\nIN WITNESS WHEREOF, I have hereunto set my hand this ______ day of ______, 20___.\n\n\n' +
+    '___________________________\n' +
+    (formData.affiant_name||formData.complainant_name||formData.sponsor_name||formData.authorizer_name||'').toUpperCase() + '\nAffiant\n\n' +
+    'SUBSCRIBED AND SWORN to before me this ______ day of ______, 20___, affiant exhibiting his/her competent evidence of identity, to wit:\n\n' +
+    'WITNESS MY HAND AND NOTARIAL SEAL.\n\n\n' +
+    'Notary Public for ______\nCommission No. ______\nRoll No. ______\nPTR No. ______\nIBP No. ______\nValid Until ______';
 
-    deed_of_sale:'Generate a tight Deed of Absolute Sale.\nVendor: '+formData.seller_name+', of '+formData.seller_address+'.\nVendee: '+formData.buyer_name+', of '+formData.buyer_address+'.\nProperty sold: '+formData.item_desc+'.\nDetails: '+formData.item_details+'.\nConsideration: Philippine Peso '+formData.sale_price+' (₱'+formData.sale_price+'), already paid and received in full.\nFormat: centered title, WHEREAS recitals, NOW THEREFORE sale clause, warranty of ownership and against liens, signature blocks for VENDOR and VENDEE with date as underscores, two witness lines, acknowledgment block with ALL date/notary fields as underscores.',
-
-    affidavit_complaint:'Generate a tight Affidavit of Complaint.\nComplainant: '+formData.complainant_name+', of '+formData.complainant_address+'.\nRespondent: '+formData.respondent_name+', of '+formData.respondent_address+'.\nDate of incident: '+formData.incident_date+'.\nFacts: '+formData.incident_details+'.\nFormat: centered title, numbered paragraphs with direct factual narration, prayer for appropriate legal action, IN WITNESS WHEREOF closing, signature line with printed name, complete jurat with ALL date fields as underscores.',
-
-    authorization:'Generate a tight Authorization Letter in notarial format.\nGrantor: '+formData.authorizer_name+', with '+formData.authorizer_id+'.\nGrantee: '+formData.authorized_name+', '+formData.authorized_relation+' of the Grantor.\nAuthority: '+formData.purpose+'.\nValidity: '+formData.validity+'.\nFormat: centered title, direct granting statement, specific acts enumerated, validity clause, signature block with date as underscores, acknowledgment block with ALL date/notary fields as underscores.',
-
-    affidavit_support:'Generate a tight Affidavit of Support and Guarantee.\nSponsor: '+formData.sponsor_name+', '+formData.sponsor_occupation+', of '+formData.sponsor_address+'.\nBeneficiary: '+formData.beneficiary_name+', '+formData.beneficiary_relation+' of the Sponsor.\nPurpose: '+formData.purpose+'.\nFormat: centered title, numbered paragraphs with direct facts, specific financial undertaking, IN WITNESS WHEREOF closing, signature line with printed name, complete jurat with ALL date fields as underscores.'
+  var ACK=function(vendorName, vendeeName){
+    return '\n\nIN WITNESS WHEREOF, the parties have hereunto set their hands this ______ day of ______, 20___.\n\n\n' +
+    '___________________________          ___________________________\n' +
+    (vendorName||'VENDOR').toUpperCase() + '                    ' + (vendeeName||'VENDEE').toUpperCase() + '\n' +
+    'Vendor                                    Vendee\n\n' +
+    'Signed in the presence of:\n\n' +
+    '___________________________          ___________________________\n' +
+    'Witness                                   Witness\n\n' +
+    'ACKNOWLEDGMENT\n\n' +
+    'REPUBLIC OF THE PHILIPPINES )\nCITY/PROVINCE OF ____________ ) S.S.\n\n' +
+    'BEFORE ME, a Notary Public for and in ______, this ______ day of ______, 20___, personally appeared:\n\n' +
+    (vendorName||'').toUpperCase() + ' — with competent evidence of identity\n' +
+    (vendeeName||'').toUpperCase() + ' — with competent evidence of identity\n\n' +
+    'known to me to be the same persons who executed the foregoing instrument and acknowledged that the same is their free and voluntary act and deed.\n\n' +
+    'WITNESS MY HAND AND NOTARIAL SEAL.\n\n\n' +
+    'Notary Public for ______\nCommission No. ______\nRoll No. ______\nPTR No. ______\nIBP No. ______\nValid Until ______\n\n' +
+    'Doc. No. ______;\nPage No. ______;\nBook No. ______;\nSeries of ______.';
   };
+
+  var SPA_ACK=function(principalName){
+    return '\n\nIN WITNESS WHEREOF, I have hereunto set my hand this ______ day of ______, 20___.\n\n\n' +
+    '___________________________\n' +
+    (principalName||'').toUpperCase() + '\nPrincipal\n\n' +
+    'Signed in the presence of:\n\n' +
+    '___________________________          ___________________________\n' +
+    'Witness                                   Witness\n\n' +
+    'ACKNOWLEDGMENT\n\n' +
+    'REPUBLIC OF THE PHILIPPINES )\nCITY/PROVINCE OF ____________ ) S.S.\n\n' +
+    'BEFORE ME, a Notary Public for and in ______, this ______ day of ______, 20___, personally appeared ' +
+    (principalName||'').toUpperCase() + ' with competent evidence of identity, known to me to be the same person who executed the foregoing instrument and acknowledged that the same is his/her free and voluntary act and deed.\n\n' +
+    'WITNESS MY HAND AND NOTARIAL SEAL.\n\n\n' +
+    'Notary Public for ______\nCommission No. ______\nRoll No. ______\nPTR No. ______\nIBP No. ______\nValid Until ______\n\n' +
+    'Doc. No. ______;\nPage No. ______;\nBook No. ______;\nSeries of ______.';
+  };
+
+  // ── HARDCODED OPENERS PER DOC TYPE ────────────────────────────────────
+  var OPENER={
+    affidavit_loss:
+      'AFFIDAVIT OF LOSS\n\n' +
+      'I, '+formData.affiant_name.toUpperCase()+', '+formData.affiant_age+' years of age, '+formData.affiant_civil.toLowerCase()+', Filipino, and a resident of '+formData.affiant_address+', after having been duly sworn to in accordance with law, do hereby depose and state that:\n',
+
+    affidavit_complaint:
+      'AFFIDAVIT OF COMPLAINT\n\n' +
+      'I, '+formData.complainant_name.toUpperCase()+', of legal age, Filipino, and a resident of '+formData.complainant_address+', after having been duly sworn to in accordance with law, do hereby depose and state that:\n',
+
+    affidavit_support:
+      'AFFIDAVIT OF SUPPORT AND GUARANTEE\n\n' +
+      'I, '+formData.sponsor_name.toUpperCase()+', of legal age, '+formData.sponsor_occupation+', Filipino, and a resident of '+formData.sponsor_address+', after having been duly sworn to in accordance with law, do hereby depose and state that:\n',
+
+    authorization:
+      'SPECIAL AUTHORIZATION\n\n' +
+      'I, '+formData.authorizer_name.toUpperCase()+', of legal age, Filipino, with '+formData.authorizer_id+', do hereby authorize '+formData.authorized_name.toUpperCase()+', my '+formData.authorized_relation+', to perform the following acts on my behalf:\n',
+
+    spa:
+      'SPECIAL POWER OF ATTORNEY\n\n' +
+      'KNOW ALL MEN BY THESE PRESENTS:\n\n' +
+      'I, '+formData.principal_name.toUpperCase()+', of legal age, Filipino, and a resident of '+formData.principal_address+' (hereinafter "Principal"), do hereby appoint, name, and constitute '+formData.agent_name.toUpperCase()+', my '+formData.agent_relation+', of '+formData.agent_address+' (hereinafter "Attorney-in-Fact"), to be my true and lawful attorney-in-fact, for me and in my name, place, and stead, to do and perform the following acts:\n',
+
+    deed_of_sale:
+      'DEED OF ABSOLUTE SALE\n\n' +
+      'KNOW ALL MEN BY THESE PRESENTS:\n\n' +
+      'This DEED OF ABSOLUTE SALE is entered into this ______ day of ______, 20___, by and between:\n\n' +
+      formData.seller_name.toUpperCase()+', of legal age, Filipino, and a resident of '+formData.seller_address+' (hereinafter "VENDOR");\n\n' +
+      '                                          — and —\n\n' +
+      formData.buyer_name.toUpperCase()+', of legal age, Filipino, and a resident of '+formData.buyer_address+' (hereinafter "VENDEE").\n\n' +
+      'WITNESSETH: That —\n'
+  };
+
+  // ── SYSTEM PROMPT: AI generates body paragraphs ONLY ──────────────────
+  var sys=
+    'You are a Philippine notarial document specialist generating ONLY the numbered body paragraphs of a legal document. ' +
+    'STRICT RULES:\n' +
+    '1. Output ONLY the numbered body paragraphs. NO title. NO opening sworn statement. NO closing. NO signature block. NO jurat. NO acknowledgment. Those are handled separately.\n' +
+    '2. ZERO filler language. Every sentence must state one specific, concrete fact using the exact details given. ' +
+    'NEVER write: "which is a vital part of", "I have been diligent", "I am executing this affidavit to attest", "I am the affiant", or any sentence that does not add a new concrete fact.\n' +
+    '3. Use exact details verbatim — ID numbers, names, dates, amounts as given. Do not paraphrase or generalize.\n' +
+    '4. Maximum 4 numbered paragraphs for affidavits. Maximum 6 for deeds and SPAs.\n' +
+    '5. Start each paragraph with its number: "1.", "2.", "3." etc.\n' +
+    '6. Do not end with any closing words, prayer, or IN WITNESS WHEREOF — that is added separately.';
+
+  // ── USER PROMPTS: body paragraphs only ────────────────────────────────
+  var prompts={
+    affidavit_loss:
+      'Generate numbered body paragraphs for an Affidavit of Loss.\n' +
+      'Lost item: '+formData.lost_item+'.\n' +
+      'Item details: '+formData.lost_details+'.\n' +
+      'Circumstances: '+formData.circumstances+'.\n' +
+      'Paragraph 1: State ownership of the specific item with all its details.\n' +
+      'Paragraph 2: State exact circumstances and date of loss.\n' +
+      'Paragraph 3: State that despite diligent search, item has not been found.\n' +
+      'Paragraph 4: State that affiant executes this affidavit for the purpose of requesting replacement and to attest to the loss.',
+
+    affidavit_complaint:
+      'Generate numbered body paragraphs for an Affidavit of Complaint.\n' +
+      'Respondent: '+formData.respondent_name+', of '+formData.respondent_address+'.\n' +
+      'Date of incident: '+formData.incident_date+'.\n' +
+      'Facts: '+formData.incident_details+'.\n' +
+      'Paragraph 1: Identify the respondent and their relation to complainant if any.\n' +
+      'Paragraph 2: State the specific incident with exact date and place.\n' +
+      'Paragraph 3: State the specific acts committed by respondent.\n' +
+      'Paragraph 4: State the prayer — that appropriate legal action be taken.',
+
+    affidavit_support:
+      'Generate numbered body paragraphs for an Affidavit of Support.\n' +
+      'Beneficiary: '+formData.beneficiary_name+', '+formData.beneficiary_relation+' of affiant.\n' +
+      'Purpose: '+formData.purpose+'.\n' +
+      'Paragraph 1: State relationship to beneficiary.\n' +
+      'Paragraph 2: State the specific purpose and travel/support details.\n' +
+      'Paragraph 3: State the specific financial undertaking — amounts, coverage, duration.\n' +
+      'Paragraph 4: State that affiant executes this affidavit to support the beneficiary\'s application.',
+
+    authorization:
+      'Generate a numbered list of specific authorized acts only. No opener, no closing.\n' +
+      'Acts to authorize: '+formData.purpose+'.\n' +
+      'Validity: '+formData.validity+'.\n' +
+      'List each specific act as a numbered item. After the numbered acts, add one sentence: "This authority is valid until '+formData.validity+'."',
+
+    spa:
+      'Generate numbered body paragraphs listing the specific powers granted.\n' +
+      'Powers: '+formData.authority+'.\n' +
+      'List each specific power as a numbered item with clear action verbs.\n' +
+      'After the powers list, add two final unnumbered paragraphs:\n' +
+      'First: "The Principal hereby ratifies and confirms all acts performed by the Attorney-in-Fact pursuant to this Special Power of Attorney."\n' +
+      'Second: "This Special Power of Attorney shall remain in full force and effect unless sooner revoked by the Principal in writing."',
+
+    deed_of_sale:
+      'Generate the WHEREAS and NOW THEREFORE clauses for a Deed of Absolute Sale. No title, no parties intro, no closing.\n' +
+      'Item: '+formData.item_desc+'. Details: '+formData.item_details+'.\n' +
+      'Price: Philippine Peso '+formData.sale_price+' (₱'+formData.sale_price+').\n' +
+      'Format:\n' +
+      'WHEREAS, the VENDOR is the lawful owner of [item with details];\n' +
+      'WHEREAS, the VENDOR desires to sell said [item] to the VENDEE who desires to purchase the same;\n' +
+      'NOW, THEREFORE, for and in consideration of the sum of Philippine Peso [amount] (₱[amount]), which the VENDEE has paid and the VENDOR acknowledges receipt of, the VENDOR hereby SELLS, TRANSFERS, and CONVEYS unto the VENDEE, his/her heirs and assigns, the above-described property free from all liens and encumbrances.\n' +
+      'THE VENDOR warrants that he/she is the absolute owner of the above-described property with full authority to sell the same, and that the same is free from all liens, encumbrances, and claims of third persons.'
+  };
+
   try{
-    var res=await fetch('/api/forge',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({systemPrompt:sys,userMessage:prompts[selectedDocType]})});
+    var res=await fetch('/api/forge',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({systemPrompt:sys, userMessage:prompts[selectedDocType]})
+    });
     var data=await res.json();
     if(!res.ok||!data.content) throw new Error(data.error||'Generation failed');
+
+    // ── ASSEMBLE FINAL DOCUMENT ──────────────────────────────────────────
+    var body=data.content.trim();
+    var finalDoc='';
+
+    if(selectedDocType==='deed_of_sale'){
+      finalDoc=OPENER[selectedDocType]+'\n'+body+ACK(formData.seller_name, formData.buyer_name);
+    } else if(selectedDocType==='spa'){
+      finalDoc=OPENER[selectedDocType]+'\n'+body+SPA_ACK(formData.principal_name);
+    } else {
+      finalDoc=OPENER[selectedDocType]+'\n'+body+JURAT;
+    }
+
     useCredit();
-    document.getElementById('doc-content').textContent=data.content;
+    document.getElementById('doc-content').textContent=finalDoc;
     document.getElementById('result-title').textContent=doc.name;
-    // Set dynamic filename for print/PDF
-    var safeName=formData[Object.keys(formData)[0]].toUpperCase().replace(/\s+/g,'_').replace(/[^A-Z0-9_]/g,'');
-    var safeDoc=doc.name.toUpperCase().replace(/\s+/g,'_');
-    document.title=safeDoc+'_'+safeName;
+
+    // Dynamic PDF filename
+    var firstName=(formData.affiant_name||formData.complainant_name||formData.sponsor_name||formData.authorizer_name||formData.principal_name||formData.seller_name||'').toUpperCase().replace(/\s+/g,'_').replace(/[^A-Z0-9_]/g,'');
+    var docSlug=doc.name.toUpperCase().replace(/\s+/g,'_');
+    document.title=docSlug+'_'+firstName;
+
     showScreen('screen-result',3);
   }catch(err){
     showScreen('screen-form',2);
