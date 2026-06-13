@@ -685,72 +685,48 @@ async function generateDoc(){
     return '';
   }
 
-  // ── SYSTEM PROMPT: AI generates body paragraphs ONLY ──────────────────
-  var sys=
-    'You are a Philippine notarial document specialist generating ONLY the numbered body paragraphs of a legal document. ' +
-    'STRICT RULES:\n' +
-    '1. Output ONLY the numbered body paragraphs. NO title. NO opening sworn statement. NO closing. NO signature block. NO jurat. NO acknowledgment. Those are handled separately.\n' +
-    '2. ZERO filler language. Every sentence must state one specific, concrete fact using the exact details given. ' +
-    'NEVER write: "which is a vital part of", "I have been diligent", "I am executing this affidavit to attest", "I am the affiant", or any sentence that does not add a new concrete fact.\n' +
-    '3. Use exact details verbatim — ID numbers, names, dates, amounts as given. Do not paraphrase or generalize.\n' +
-    '4. Maximum 4 numbered paragraphs for affidavits. Maximum 6 for deeds and SPAs.\n' +
-    '5. Start each paragraph with its number: "1.", "2.", "3." etc.\n' +
-    '6. Do not end with any closing words, prayer, or IN WITNESS WHEREOF — that is added separately.';
+  // ── SYSTEM PROMPT ─────────────────────────────────────────────────────
+  var sys='You are a Philippine legal document specialist. Complete the sentence templates exactly as given. Fill [BRACKETS] with the provided details. Do not add, remove, or rephrase any words outside the brackets. Output only the numbered paragraphs — nothing else.';
 
-  // ── USER PROMPTS: body paragraphs only ────────────────────────────────
+  // ── USER PROMPTS: hardcoded sentence templates ─────────────────────────
   var prompts={
     affidavit_loss:
-      'Generate numbered body paragraphs for an Affidavit of Loss.\n' +
-      'Lost item: '+formData.lost_item+'.\n' +
-      'Item details: '+formData.lost_details+'.\n' +
-      'Circumstances: '+formData.circumstances+'.\n' +
-      'Paragraph 1: State ownership of the specific item with all its details.\n' +
-      'Paragraph 2: State exact circumstances and date of loss.\n' +
-      'Paragraph 3: State that despite diligent search, item has not been found.\n' +
-      'Paragraph 4: State that affiant executes this affidavit for the purpose of requesting replacement and to attest to the loss.',
+      'Complete these 4 paragraphs by filling the brackets with the details given. Output only these 4 paragraphs, numbered exactly as shown.\n\n' +
+      '1. I am the rightful owner of ['+formData.lost_item+' — include this description: '+formData.lost_details+'].\n' +
+      '2. Said ['+formData.lost_item+'] was lost [fill in: '+formData.circumstances+'].\n' +
+      '3. Despite diligent search, said ['+formData.lost_item+'] has not been found or recovered.\n' +
+      '4. I execute this affidavit to attest to said loss and to support my request for a replacement.',
 
     affidavit_complaint:
-      'Generate numbered body paragraphs for an Affidavit of Complaint.\n' +
-      'Respondent: '+formData.respondent_name+', of '+formData.respondent_address+'.\n' +
-      'Date of incident: '+formData.incident_date+'.\n' +
-      'Facts: '+formData.incident_details+'.\n' +
-      'Paragraph 1: Identify the respondent and their relation to complainant if any.\n' +
-      'Paragraph 2: State the specific incident with exact date and place.\n' +
-      'Paragraph 3: State the specific acts committed by respondent.\n' +
-      'Paragraph 4: State the prayer — that appropriate legal action be taken.',
+      'Complete these 4 paragraphs by filling the brackets with the details given. Output only these 4 paragraphs, numbered exactly as shown.\n\n' +
+      '1. I personally know respondent ['+formData.respondent_name+'], who is a resident of ['+formData.respondent_address+'].\n' +
+      '2. On ['+formData.incident_date+'], [fill in the specific incident using: '+formData.incident_details+'].\n' +
+      '3. [Continue narrating the specific acts committed by respondent using: '+formData.incident_details+'].\n' +
+      '4. I am executing this affidavit to support the filing of appropriate legal charges against the respondent.',
 
     affidavit_support:
-      'Generate numbered body paragraphs for an Affidavit of Support.\n' +
-      'Beneficiary: '+formData.beneficiary_name+', '+formData.beneficiary_relation+' of affiant.\n' +
-      'Purpose: '+formData.purpose+'.\n' +
-      'Paragraph 1: State relationship to beneficiary.\n' +
-      'Paragraph 2: State the specific purpose and travel/support details.\n' +
-      'Paragraph 3: State the specific financial undertaking — amounts, coverage, duration.\n' +
-      'Paragraph 4: State that affiant executes this affidavit to support the beneficiary\'s application.',
+      'Complete these 4 paragraphs by filling the brackets with the details given. Output only these 4 paragraphs, numbered exactly as shown.\n\n' +
+      '1. ['+formData.beneficiary_name+'] is my ['+formData.beneficiary_relation+'].\n' +
+      '2. ['+formData.beneficiary_name+'] intends to [fill in purpose from: '+formData.purpose+'].\n' +
+      '3. I hereby undertake to provide full financial support for ['+formData.beneficiary_name+'] including [fill in specific expenses and amounts from: '+formData.purpose+'].\n' +
+      '4. I execute this affidavit to support the travel/visa application of ['+formData.beneficiary_name+'].',
 
     authorization:
-      'Generate a numbered list of specific authorized acts only. No opener, no closing.\n' +
-      'Acts to authorize: '+formData.purpose+'.\n' +
-      'Validity: '+formData.validity+'.\n' +
-      'List each specific act as a numbered item. After the numbered acts, add one sentence: "This authority is valid until '+formData.validity+'."',
+      'List the authorized acts as numbered items using the details given. After the list, add one final line: "This authority is valid until '+formData.validity+'." Output only the numbered acts and that final line.\n\n' +
+      'Acts to authorize: '+formData.purpose,
 
     spa:
-      'Generate numbered body paragraphs listing the specific powers granted.\n' +
-      'Powers: '+formData.authority+'.\n' +
-      'List each specific power as a numbered item with clear action verbs.\n' +
-      'After the powers list, add two final unnumbered paragraphs:\n' +
-      'First: "The Principal hereby ratifies and confirms all acts performed by the Attorney-in-Fact pursuant to this Special Power of Attorney."\n' +
-      'Second: "This Special Power of Attorney shall remain in full force and effect unless sooner revoked by the Principal in writing."',
+      'List the specific powers as numbered items using clear action verbs. After all numbered powers, add exactly these two unnumbered paragraphs verbatim:\n' +
+      '"The Principal hereby ratifies and confirms all acts performed by the Attorney-in-Fact pursuant to this Special Power of Attorney."\n' +
+      '"This Special Power of Attorney shall remain in full force and effect unless sooner revoked by the Principal in writing."\n\n' +
+      'Powers to list: '+formData.authority,
 
     deed_of_sale:
-      'Generate the WHEREAS and NOW THEREFORE clauses for a Deed of Absolute Sale. No title, no parties intro, no closing.\n' +
-      'Item: '+formData.item_desc+'. Details: '+formData.item_details+'.\n' +
-      'Price: Philippine Peso '+formData.sale_price+' (₱'+formData.sale_price+').\n' +
-      'Format:\n' +
-      'WHEREAS, the VENDOR is the lawful owner of [item with details];\n' +
-      'WHEREAS, the VENDOR desires to sell said [item] to the VENDEE who desires to purchase the same;\n' +
-      'NOW, THEREFORE, for and in consideration of the sum of Philippine Peso [amount] (₱[amount]), which the VENDEE has paid and the VENDOR acknowledges receipt of, the VENDOR hereby SELLS, TRANSFERS, and CONVEYS unto the VENDEE, his/her heirs and assigns, the above-described property free from all liens and encumbrances.\n' +
-      'THE VENDOR warrants that he/she is the absolute owner of the above-described property with full authority to sell the same, and that the same is free from all liens, encumbrances, and claims of third persons.'
+      'Output exactly these clauses, filling in the brackets. No other text.\n\n' +
+      'WHEREAS, the VENDOR is the lawful and registered owner of ['+formData.item_desc+', with the following details: '+formData.item_details+'];\n\n' +
+      'WHEREAS, the VENDOR desires to sell the above-described property to the VENDEE, and the VENDEE desires to purchase the same;\n\n' +
+      'NOW, THEREFORE, for and in consideration of the sum of PHILIPPINE PESO '+formData.sale_price+' (₱'+formData.sale_price+'.00), Philippine Currency, which the VENDEE has paid to the VENDOR, receipt of which is hereby acknowledged, the VENDOR hereby SELLS, TRANSFERS, CONVEYS, and DELIVERS unto the VENDEE, his/her heirs and assigns, the above-described property.\n\n' +
+      'THE VENDOR warrants that he/she is the absolute owner of the above-described property, that the same is free from all liens, encumbrances, and claims of any third person, and that he/she has the full legal capacity and authority to sell the same.'
   };
 
   try{
