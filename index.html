@@ -653,38 +653,37 @@ async function generateDoc(){
     'Doc. No. ______;\nPage No. ______;\nBook No. ______;\nSeries of ______.';
   };
 
-  // ── HARDCODED OPENERS PER DOC TYPE ────────────────────────────────────
-  var OPENER={
-    affidavit_loss:
-      'AFFIDAVIT OF LOSS\n\n' +
-      'I, '+formData.affiant_name.toUpperCase()+', '+formData.affiant_age+' years of age, '+formData.affiant_civil.toLowerCase()+', Filipino, and a resident of '+formData.affiant_address+', after having been duly sworn to in accordance with law, do hereby depose and state that:\n',
-
-    affidavit_complaint:
-      'AFFIDAVIT OF COMPLAINT\n\n' +
-      'I, '+formData.complainant_name.toUpperCase()+', of legal age, Filipino, and a resident of '+formData.complainant_address+', after having been duly sworn to in accordance with law, do hereby depose and state that:\n',
-
-    affidavit_support:
-      'AFFIDAVIT OF SUPPORT AND GUARANTEE\n\n' +
-      'I, '+formData.sponsor_name.toUpperCase()+', of legal age, '+formData.sponsor_occupation+', Filipino, and a resident of '+formData.sponsor_address+', after having been duly sworn to in accordance with law, do hereby depose and state that:\n',
-
-    authorization:
-      'SPECIAL AUTHORIZATION\n\n' +
-      'I, '+formData.authorizer_name.toUpperCase()+', of legal age, Filipino, with '+formData.authorizer_id+', do hereby authorize '+formData.authorized_name.toUpperCase()+', my '+formData.authorized_relation+', to perform the following acts on my behalf:\n',
-
-    spa:
-      'SPECIAL POWER OF ATTORNEY\n\n' +
-      'KNOW ALL MEN BY THESE PRESENTS:\n\n' +
-      'I, '+formData.principal_name.toUpperCase()+', of legal age, Filipino, and a resident of '+formData.principal_address+' (hereinafter "Principal"), do hereby appoint, name, and constitute '+formData.agent_name.toUpperCase()+', my '+formData.agent_relation+', of '+formData.agent_address+' (hereinafter "Attorney-in-Fact"), to be my true and lawful attorney-in-fact, for me and in my name, place, and stead, to do and perform the following acts:\n',
-
-    deed_of_sale:
-      'DEED OF ABSOLUTE SALE\n\n' +
-      'KNOW ALL MEN BY THESE PRESENTS:\n\n' +
-      'This DEED OF ABSOLUTE SALE is entered into this ______ day of ______, 20___, by and between:\n\n' +
-      formData.seller_name.toUpperCase()+', of legal age, Filipino, and a resident of '+formData.seller_address+' (hereinafter "VENDOR");\n\n' +
-      '                                          — and —\n\n' +
-      formData.buyer_name.toUpperCase()+', of legal age, Filipino, and a resident of '+formData.buyer_address+' (hereinafter "VENDEE").\n\n' +
-      'WITNESSETH: That —\n'
-  };
+  // ── HARDCODED OPENERS PER DOC TYPE (lazy — only builds selected type) ──
+  function getOpener(type){
+    var f=formData;
+    function uc(v){return (v||'').toUpperCase();}
+    function lc(v){return (v||'').toLowerCase();}
+    if(type==='affidavit_loss') return(
+      'AFFIDAVIT OF LOSS\n\n'+
+      'I, '+uc(f.affiant_name)+', '+f.affiant_age+' years of age, '+lc(f.affiant_civil)+', Filipino, and a resident of '+f.affiant_address+', after having been duly sworn to in accordance with law, do hereby depose and state that:\n');
+    if(type==='affidavit_complaint') return(
+      'AFFIDAVIT OF COMPLAINT\n\n'+
+      'I, '+uc(f.complainant_name)+', of legal age, Filipino, and a resident of '+f.complainant_address+', after having been duly sworn to in accordance with law, do hereby depose and state that:\n');
+    if(type==='affidavit_support') return(
+      'AFFIDAVIT OF SUPPORT AND GUARANTEE\n\n'+
+      'I, '+uc(f.sponsor_name)+', of legal age, '+f.sponsor_occupation+', Filipino, and a resident of '+f.sponsor_address+', after having been duly sworn to in accordance with law, do hereby depose and state that:\n');
+    if(type==='authorization') return(
+      'SPECIAL AUTHORIZATION\n\n'+
+      'I, '+uc(f.authorizer_name)+', of legal age, Filipino, with '+f.authorizer_id+', do hereby authorize '+uc(f.authorized_name)+', my '+f.authorized_relation+', to perform the following acts on my behalf:\n');
+    if(type==='spa') return(
+      'SPECIAL POWER OF ATTORNEY\n\n'+
+      'KNOW ALL MEN BY THESE PRESENTS:\n\n'+
+      'I, '+uc(f.principal_name)+', of legal age, Filipino, and a resident of '+f.principal_address+' (hereinafter "Principal"), do hereby appoint, name, and constitute '+uc(f.agent_name)+', my '+f.agent_relation+', of '+f.agent_address+' (hereinafter "Attorney-in-Fact"), to be my true and lawful attorney-in-fact, for me and in my name, place, and stead, to do and perform the following acts:\n');
+    if(type==='deed_of_sale') return(
+      'DEED OF ABSOLUTE SALE\n\n'+
+      'KNOW ALL MEN BY THESE PRESENTS:\n\n'+
+      'This DEED OF ABSOLUTE SALE is entered into this ______ day of ______, 20___, by and between:\n\n'+
+      uc(f.seller_name)+', of legal age, Filipino, and a resident of '+f.seller_address+' (hereinafter "VENDOR");\n\n'+
+      '                                          — and —\n\n'+
+      uc(f.buyer_name)+', of legal age, Filipino, and a resident of '+f.buyer_address+' (hereinafter "VENDEE").\n\n'+
+      'WITNESSETH: That —\n');
+    return '';
+  }
 
   // ── SYSTEM PROMPT: AI generates body paragraphs ONLY ──────────────────
   var sys=
@@ -766,13 +765,14 @@ async function generateDoc(){
     // ── ASSEMBLE FINAL DOCUMENT ──────────────────────────────────────────
     var body=data.content.trim();
     var finalDoc='';
+    var opener=getOpener(selectedDocType);
 
     if(selectedDocType==='deed_of_sale'){
-      finalDoc=OPENER[selectedDocType]+'\n'+body+ACK(formData.seller_name, formData.buyer_name);
+      finalDoc=opener+'\n'+body+ACK(formData.seller_name, formData.buyer_name);
     } else if(selectedDocType==='spa'){
-      finalDoc=OPENER[selectedDocType]+'\n'+body+SPA_ACK(formData.principal_name);
+      finalDoc=opener+'\n'+body+SPA_ACK(formData.principal_name);
     } else {
-      finalDoc=OPENER[selectedDocType]+'\n'+body+JURAT;
+      finalDoc=opener+'\n'+body+JURAT;
     }
 
     useCredit();
