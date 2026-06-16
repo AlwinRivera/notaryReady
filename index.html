@@ -690,23 +690,28 @@ async function generateDoc(){
     'You are a Philippine legal document specialist. You write numbered body paragraphs for notarial documents.\n' +
     'RULES:\n' +
     '1. Output ONLY the numbered paragraphs. Nothing before paragraph 1, nothing after the last paragraph.\n' +
-    '2. Write clean, direct legal English. One fact per paragraph. No filler.\n' +
-    '3. Use EXACTLY the names, dates, ID numbers, and item descriptions provided — verbatim, no paraphrasing.\n' +
-    '4. Never use placeholder text, brackets, or the word "fill in". Write the actual finished sentences.\n' +
-    '5. Never write "I am executing this affidavit", "to the best of my knowledge", or any circular filler.';
+    '2. FIRST PERSON ONLY. Always write "I am", "I lost", "I execute", "I own". NEVER write "the affiant is", "the affiant lost", "the affiant executes". Affidavits are first-person declarations.\n' +
+    '3. Write clean, direct legal English. One concrete fact per paragraph. Zero filler.\n' +
+    '4. Use EXACTLY the names, dates, ID numbers, and item descriptions provided — verbatim, no paraphrasing or generalizing.\n' +
+    '5. Never use placeholder text or brackets. Write actual finished sentences.\n' +
+    '6. BANNED PHRASES: "to the best of my knowledge", "regularize", "surrounding the loss", "vital part of", "accounts and transactions", "in order to", or any clause the user did not provide.';
 
   // ── USER PROMPTS ────────────────────────────────────────────────────────
   var prompts={
     affidavit_loss:
-      'Write exactly 4 numbered paragraphs for an Affidavit of Loss body. Use these exact details:\n' +
+      'Write exactly 4 numbered paragraphs for an Affidavit of Loss body.\n' +
+      'CRITICAL: Write in FIRST PERSON ("I am", "I lost", "I execute") — never third person ("the affiant is", "the affiant lost").\n' +
+      'BANNED in paragraph 4: Do not add any reason, purpose, or clause beyond "to attest to said loss and to support my request for a replacement." Nothing else.\n\n' +
+      'Use these exact details:\n' +
       'Item lost: '+formData.lost_item+'\n' +
       'Item description/ID: '+formData.lost_details+'\n' +
       'How/when lost: '+formData.circumstances+'\n\n' +
-      'Paragraph 1: State that the affiant is the rightful owner of the specific item, including its full description and ID details.\n' +
-      'Paragraph 2: State when and how the item was lost using the exact circumstances provided.\n' +
-      'Paragraph 3: State that despite diligent search, the item has not been found or recovered.\n' +
-      'Paragraph 4: State that the affiant executes this affidavit to attest to the loss and to support a request for replacement.\n\n' +
-      'Write all 4 paragraphs now. No brackets. No placeholders. Real finished sentences.',
+      'Write these 4 paragraphs:\n' +
+      '1. I am the rightful owner of [describe item with its full ID/description details].\n' +
+      '2. Said [item] was lost [when and how, using exact circumstances given].\n' +
+      '3. Despite diligent search, said [item] has not been found or recovered.\n' +
+      '4. I execute this affidavit to attest to said loss and to support my request for a replacement.\n\n' +
+      'Fill in the bracketed parts with real details. First person only. No extra clauses.',
 
     affidavit_complaint:
       'Write exactly 4 numbered paragraphs for an Affidavit of Complaint body. Use these exact details:\n' +
@@ -716,17 +721,17 @@ async function generateDoc(){
       'Paragraph 1: Identify the respondent by name and address.\n' +
       'Paragraph 2: State what happened on the specific date — use exact details provided.\n' +
       'Paragraph 3: Continue narrating the specific acts committed by the respondent.\n' +
-      'Paragraph 4: State that the affiant executes this affidavit to support the filing of appropriate legal action.\n\n' +
+      'Paragraph 4: Write: 'I execute this affidavit to support the filing of appropriate legal charges against the respondent.'\n\n' +
       'Write all 4 paragraphs now. No brackets. No placeholders. Real finished sentences.',
 
     affidavit_support:
       'Write exactly 4 numbered paragraphs for an Affidavit of Support body. Use these exact details:\n' +
       'Beneficiary: '+formData.beneficiary_name+', '+formData.beneficiary_relation+' of the affiant\n' +
       'Purpose and details: '+formData.purpose+'\n\n' +
-      'Paragraph 1: State the relationship between the affiant and the beneficiary.\n' +
+      'Paragraph 1: Write: 'I am the [relationship] of [beneficiary name].' Use first person.\n' +
       'Paragraph 2: State the specific purpose — travel destination, dates, reason.\n' +
       'Paragraph 3: State the specific financial undertaking — what expenses are covered, amounts if given.\n' +
-      'Paragraph 4: State that the affiant executes this affidavit to support the beneficiary\'s application.\n\n' +
+      'Paragraph 4: Write: 'I execute this affidavit to support the [travel/visa] application of [beneficiary name].' First person only.\n\n' +
       'Write all 4 paragraphs now. No brackets. No placeholders. Real finished sentences.',
 
     authorization:
