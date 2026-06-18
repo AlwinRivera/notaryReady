@@ -377,7 +377,7 @@ textarea.field-input{resize:vertical;min-height:88px;line-height:1.6;}
     <div class="app-screen" id="screen-form">
       <div class="form-card fade-in">
         <div class="form-card-title" id="form-title">Fill in your details</div>
-        <p class="form-card-sub">Fill in accurately — these appear verbatim in your legal document.</p>
+        <p class="form-card-sub">Fill in accurately — these appear verbatim in your legal document. <strong style="color:var(--navy-mid);">More detail = stronger document.</strong> Include ID numbers, exact dates, amounts, and places.</p>
         <div id="form-fields"></div>
         <div class="error-msg" id="form-error"></div>
         <div class="form-divider"></div>
@@ -461,9 +461,9 @@ var DOC_TYPES={
     {id:'affiant_age',label:'Age',type:'text',placeholder:'e.g. 35'},
     {id:'affiant_civil',label:'Civil status',type:'select',options:['Single','Married','Widowed','Separated']},
     {id:'affiant_address',label:'Complete address',type:'text',placeholder:'e.g. Brgy. Lahug, Cebu City'},
-    {id:'lost_item',label:'What was lost?',type:'text',placeholder:'e.g. PhilHealth ID Card'},
-    {id:'lost_details',label:'Item details (ID number, description, etc.)',type:'textarea',placeholder:'e.g. PhilHealth ID No. 12-345678901-2, issued in Cebu City'},
-    {id:'circumstances',label:'How and when was it lost?',type:'textarea',placeholder:'e.g. Sometime in March 2025 while commuting in Cebu City. Despite diligent search, it could not be found.'},
+    {id:'lost_item',label:'What was lost? (be specific)',type:'text',placeholder:'e.g. BDO ATM Card / PhilHealth ID / Driver\'s License / iPhone 14'},
+    {id:'lost_details',label:'Item details — include ID/serial/account number',type:'textarea',placeholder:'e.g. BDO ATM Card, account number ending in 4521, issued under my name ALWIN RIVERA — OR — PhilHealth ID No. 12-345678901-2, issued Cebu City 2019'},
+    {id:'circumstances',label:'Exact circumstances — date, place, how you discovered the loss',type:'textarea',placeholder:'Be specific: e.g. On March 15, 2025, I lost it while riding a jeepney along Colon Street, Cebu City. I realized it was missing when I arrived at my destination. I have since searched my belongings and retraced my steps but could not recover it.'},
   ]},
   spa:{name:'Special Power of Attorney',fields:[
     {id:'principal_name',label:'Your full name (principal)',type:'text',placeholder:'e.g. Maria Santos'},
@@ -471,7 +471,7 @@ var DOC_TYPES={
     {id:'agent_name',label:'Attorney-in-fact full name',type:'text',placeholder:'Person you are authorizing'},
     {id:'agent_address',label:'Attorney-in-fact address',type:'text',placeholder:'e.g. Brgy. Guadalupe, Cebu City'},
     {id:'agent_relation',label:'Their relationship to you',type:'text',placeholder:'e.g. spouse, sibling, friend'},
-    {id:'authority',label:'What are you authorizing them to do?',type:'textarea',placeholder:'e.g. To receive my salary, sign documents on my behalf, manage my BDO account, and transact with government agencies during my absence.'},
+    {id:'authority',label:'Specific acts to authorize — list each one',type:'textarea',placeholder:'List each act specifically: e.g. 1. To receive my monthly salary from ABC Company. 2. To sign and file my ITR at BIR Cebu. 3. To manage and transact using my BDO savings account no. 1234-5678-90. 4. To sign any documents related to my property in Mandaue City.'},
   ]},
   deed_of_sale:{name:'Deed of Sale',fields:[
     {id:'seller_name',label:'Seller full name',type:'text',placeholder:'e.g. Pedro Reyes'},
@@ -488,14 +488,14 @@ var DOC_TYPES={
     {id:'respondent_name',label:'Name of person you are complaining against',type:'text',placeholder:'e.g. Jose Reyes'},
     {id:'respondent_address',label:'Their address (if known)',type:'text',placeholder:'e.g. Brgy. Labangon, Cebu City'},
     {id:'incident_date',label:'Date of incident',type:'text',placeholder:'e.g. May 15, 2025'},
-    {id:'incident_details',label:'What happened (be factual and specific)',type:'textarea',placeholder:'Describe the incident clearly...'},
+    {id:'incident_details',label:'What happened — include exact date, place, witnesses, specific acts',type:'textarea',placeholder:'Be factual and specific: e.g. On May 15, 2025, at around 3:00 PM, respondent Jose Reyes came to my store at Brgy. Labangon and demanded money. When I refused, he shouted threats and damaged my signage. Two witnesses were present: Maria Cruz and Pedro Santos.'},
   ]},
   authorization:{name:'Authorization Letter',fields:[
     {id:'authorizer_name',label:'Your full name',type:'text',placeholder:'e.g. Carlo Mendoza'},
     {id:'authorizer_id',label:'Your ID number (any government ID)',type:'text',placeholder:'e.g. Passport No. P1234567A'},
     {id:'authorized_name',label:'Name of person you are authorizing',type:'text',placeholder:'e.g. Liza Mendoza'},
     {id:'authorized_relation',label:'Their relationship to you',type:'text',placeholder:'e.g. wife, sister, friend'},
-    {id:'purpose',label:'What are you authorizing them to do?',type:'textarea',placeholder:'e.g. To claim my SSS check, pick up documents from the DFA, and sign forms at BPI Cebu branch.'},
+    {id:'purpose',label:'Specific acts to authorize — list each one',type:'textarea',placeholder:'List specifically: e.g. 1. To claim my SSS maternity benefit check. 2. To pick up my passport from DFA Cebu, Application No. 12345. 3. To sign the loan release documents at BPI Mango Avenue branch.'},
     {id:'validity',label:'Valid until',type:'text',placeholder:'e.g. December 31, 2025 or one-time use only'},
   ]},
   affidavit_support:{name:'Affidavit of Support',fields:[
@@ -504,7 +504,7 @@ var DOC_TYPES={
     {id:'sponsor_occupation',label:'Your occupation',type:'text',placeholder:'e.g. Engineer / OFW in Saudi Arabia'},
     {id:'beneficiary_name',label:'Name of person you are supporting',type:'text',placeholder:'e.g. Ana Cruz'},
     {id:'beneficiary_relation',label:'Their relationship to you',type:'text',placeholder:'e.g. wife, daughter, mother'},
-    {id:'purpose',label:'Purpose and details of support',type:'textarea',placeholder:'e.g. To support her travel to Japan for tourism from June 1–15, 2025. I will cover all expenses including airfare, accommodation, and daily allowance.'},
+    {id:'purpose',label:'Purpose, travel dates, and specific amounts you will cover',type:'textarea',placeholder:'Be specific about amounts and dates: e.g. To support her tourist trip to Japan from June 1–15, 2025. I will cover her round-trip airfare (approx. ₱35,000), hotel accommodation at APA Hotel Tokyo (₱28,000), and daily allowance of ₱3,000/day for 15 days (₱45,000). Total financial support: approx. ₱108,000.'},
   ]}
 };
 
