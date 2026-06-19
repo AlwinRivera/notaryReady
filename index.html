@@ -455,6 +455,11 @@ textarea.field-input{resize:vertical;min-height:88px;line-height:1.6;}
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+// ── BACKEND CONFIG ──────────────────────────────────────────────────────
+// Hardcoded to the live Vercel deployment so this page works from ANY host
+// (GitHub Pages, custom domain, local file, etc) — not just when deployed on Vercel itself.
+var API_BASE = "https://notary-ready.vercel.app";
+
 var DOC_TYPES={
   affidavit_loss:{name:'Affidavit of Loss',fields:[
     {id:'affiant_name',label:'Your full legal name',type:'text',placeholder:'e.g. Juan dela Cruz'},
@@ -763,7 +768,7 @@ async function generateDoc(){
   };
 
   try{
-    var res=await fetch('/api/forge',{
+    var res=await fetch(API_BASE+'/api/forge',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({systemPrompt:sys, userMessage:prompts[selectedDocType]})
@@ -821,7 +826,7 @@ async function checkout(){
     sessionStorage.setItem('nr_formData', JSON.stringify(formData||{}));
   }catch(e){}
   try{
-    var res=await fetch('/api/paymongo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plan:selectedPlan,successUrl:base+'?paid='+selectedPlan,cancelUrl:base+'?cancelled=1'})});
+    var res=await fetch(API_BASE+'/api/paymongo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plan:selectedPlan,successUrl:base+'?paid='+selectedPlan,cancelUrl:base+'?cancelled=1'})});
     var data=await res.json();
     if(!res.ok||!data.checkoutUrl) throw new Error(data.error||'Payment error');
     window.location.href=data.checkoutUrl;
